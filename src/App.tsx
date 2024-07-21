@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
+import ClassListPage from './pages/ClassListPage';
+import StudentClass from './model/StudentClass';
+import ClassPage from './pages/ClassPage';
+
+
+enum Page {
+  CLASS_LIST,
+  CLASS_WHEEL
+}
+
+
 function App() {
+  const [currentPage, setCurrentPage] = useState(Page.CLASS_LIST);
+  const [currentClass, setCurrentClass] = useState(null as unknown as StudentClass);
+  const goToClassCallback = (studentClass :StudentClass) => {
+    setCurrentPage(Page.CLASS_WHEEL);
+    setCurrentClass(studentClass);
+  }
+  const goToClassListCallback = () => {
+    setCurrentPage(Page.CLASS_LIST);
+  }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {currentPage===Page.CLASS_LIST && <ClassListPage goToClassCallback={goToClassCallback}/>}
+      {currentPage===Page.CLASS_WHEEL && <ClassPage studentClass={currentClass} goToClassListCallback={goToClassListCallback}/>}
     </div>
   );
 }
+
+
 
 export default App;
