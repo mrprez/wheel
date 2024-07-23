@@ -2,6 +2,7 @@ import StudentClass from "../model/StudentClass";
 import studentClassDao from "../dao/StudentClassDao";
 import { useRef, useState } from "react";
 import StudentListDialog from "../dialogs/StudentListDialog";
+import Student from "../model/Student";
 
 
 type ClassPageProps = {
@@ -11,7 +12,12 @@ type ClassPageProps = {
 
 export default function ClassPage(props :ClassPageProps) {
     const [studentList, setStudentList] = useState(studentClassDao.listClassStudents(props.studentClass.id));
+    
     const studentListDialogRef = useRef<HTMLDialogElement>(null);
+
+    const saveStudentListCallback = (studentList :Student[]) => {
+        studentClassDao.saveStudentList(props.studentClass.id, studentList);
+    };
 
     return (
         <>
@@ -21,7 +27,7 @@ export default function ClassPage(props :ClassPageProps) {
                 <button onClick={() => studentListDialogRef.current?.showModal()}>Liste des élèves</button>
             </header>
             <main>
-                <StudentListDialog studentList={studentList} ref={studentListDialogRef}/>
+                <StudentListDialog classId={props.studentClass.id} studentList={studentList} ref={studentListDialogRef} validateCallback={saveStudentListCallback}/>
             </main>
         </>
     );

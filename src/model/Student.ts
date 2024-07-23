@@ -1,12 +1,14 @@
 class Student {
-    id :number;
+    key :number;
+    classId :number;
     firstname: string;
     lastname: string;
 
-    constructor(id :number, firstname :string, lastname :string) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
+    constructor(key :number, classId :number, firstname :string, lastname :string) {
+        this.key = key;
+        this.classId = classId;
+        this.firstname = firstname.trim();
+        this.lastname = lastname.trim();
     }    
 
 }
