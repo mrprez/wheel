@@ -4,6 +4,7 @@ h1 {
 }
 
 
+/* Bouton */
 .btn {
   border-radius: var(--border-radius);
   padding: var(--small-spacing);
@@ -17,6 +18,7 @@ h1 {
 
 .btn:hover {
   box-shadow: var(--active-color) 0 0 var(--large-border-size) var(--large-border-size);
+  outline: var(--thin-border-size) solid var(--text-color);
 }
 
 .btn:active {
@@ -24,6 +26,7 @@ h1 {
 }
 
 
+/* Liste d'éléments */
 .list {
   display: flex;
   flex-direction: column;
@@ -56,5 +59,66 @@ h1 {
 .list .item .item-title {
   font-weight: var(--normal-font-bold);
 }
-  
-  
+
+
+/* Boite de dialogue */
+dialog {
+  border: var(--normal-border-size) solid var(--background-color);
+  border-radius: var(--border-radius);
+  padding: var(--normal-spacing);
+}
+
+::backdrop {
+  background-color: var(--bland-color);
+  opacity: 0.75;
+}
+
+dialog .dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--normal-spacing);
+}
+
+dialog .dialog-content .dialog-title {
+  flex: 0 0 auto;
+  font-size: var(--big-font-size);
+  padding-bottom: var(--small-spacing);
+}
+
+dialog .dialog-content .dialog-buttons {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--normal-spacing);
+  width: 100%;
+  border-top: var(--thin-border-size) solid var(--border-color);
+  padding-top: var(--normal-spacing);
+}
+
+dialog .dialog-content .dialog-buttons .btn {
+  flex: 1 1 0;
+}
+
+
+/* Formulaire */
+.input-field {
+  display: flex;
+  flex-direction: row;
+  gap: var(--normal-spacing);
+  align-items: center;
+}
+
+input[type='text'] {
+  appearance: none;
+  outline: var(--thin-border-size) solid var(--border-color);
+  padding: var(--small-spacing);
+  border-radius: var(--border-radius);
+  border: none;
+}
+
+input[type='text']:focus-within, input[type='text']:active {
+  outline-color: var(--active-color);
+  box-shadow: var(--active-color) 0 0 var(--thin-border-size) var(--thin-border-size);
+}

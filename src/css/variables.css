@@ -14,7 +14,8 @@
     --small-spacing: 0.5rem;
     --normal-spacing: 1rem;
 
-    --normal-border-size: 2px;
+    --thin-border-size: 2px;
+    --normal-border-size: 5px;
     --large-border-size: 0.25rem;
 
     --border-radius: 0.5rem;

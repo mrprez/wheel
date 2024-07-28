@@ -28,15 +28,15 @@ export default function AddClassDialog({displayed, callback, onClose} : AddClass
 
     return (
         <dialog ref={dialog} onClose={onClose}>
-            <form method="dialog" onSubmit={onSubmit}>
-                <div className="dialogTitle">Classe</div>
-                <div className="dialogContent">
-                    <div className="inputField">
+            <form method="dialog" onSubmit={onSubmit} className="dialog-content">
+                <div className="dialog-title">Classe</div>
+                <div className="dialog-main">
+                    <div className="input-field">
                         <label htmlFor="className">Nom de la classe</label>
                         <input id="className" type="text" required autoFocus ref={name}/>
                     </div>
                 </div>
-                <div className="dialogButtonsCtn">
+                <div className="dialog-buttons">
                     <button className="btn" type="submit">Valider</button>
                     <button className="btn bland" type="button" onClick={onCancel}>Annuler</button>
                 </div>
