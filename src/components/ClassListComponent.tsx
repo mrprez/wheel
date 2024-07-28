@@ -8,7 +8,7 @@ type ClassListProps = {
 
 export default function ClassListComponent({list, goToClassCallback}: ClassListProps) {
     return (
-        <div>
+        <div className='list'>
             {list.map(studentClass => <ClassListItem key={studentClass.id} studentClass={studentClass} goToClassCallback={goToClassCallback}/>)}
         </div> 
     );
@@ -23,7 +23,9 @@ type ClassListItemProps = {
 
 function ClassListItem({studentClass, goToClassCallback} : ClassListItemProps) {
     return (
-        <div onClick={() => goToClassCallback(studentClass)}>{studentClass.name}</div>
+        <div className='item active' onClick={() => goToClassCallback(studentClass)}>
+            <span className='item-title'>{studentClass.name}</span>
+        </div>
     )
 }
 

@@ -1,0 +1,21 @@
+.App {
+    --active-color: #008080;
+    --background-color: #282c34;
+    --text-color: #e9e9ea;
+    --border-color: #939599;
+    --bland-color: #686b70;
+    
+    --normal-font-size: 1rem;
+    --big-font-size: 1.5rem;
+    --huge-font-size: 3rem;
+
+    --normal-font-bold: 700;
+
+    --small-spacing: 0.5rem;
+    --normal-spacing: 1rem;
+
+    --normal-border-size: 2px;
+    --large-border-size: 0.25rem;
+
+    --border-radius: 0.5rem;
+}

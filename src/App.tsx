@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import './App.css';
+import './css/variables.css';
+import './css/App.css';
+import './css/components.css';
 
 import ClassListPage from './pages/ClassListPage';
 import StudentClass from './model/StudentClass';

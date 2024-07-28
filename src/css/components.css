@@ -1,0 +1,60 @@
+h1 {
+  font-size: var(--huge-font-size);
+  font-weight: var(----normal-font-bold);
+}
+
+
+.btn {
+  border-radius: var(--border-radius);
+  padding: var(--small-spacing);
+  font-weight: var(--normal-font-bold);
+  cursor: pointer;
+  background-color: var(--active-color);
+  border: none;
+  color: var(--text-color);
+  font-size: var(--normal-font-size);
+}
+
+.btn:hover {
+  box-shadow: var(--active-color) 0 0 var(--large-border-size) var(--large-border-size);
+}
+
+.btn:active {
+  box-shadow: inset var(--bland-color) 0 0 var(--large-border-size) var(--large-border-size);
+}
+
+
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+  gap: var(--normal-spacing);
+  padding: var(--normal-spacing);
+}
+
+.list .item {
+  background-color: var(--text-color);
+  color: var(--background-color);
+  border-radius: var(--border-radius);
+  padding: var(--small-spacing);
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.list .item.active:hover {
+  box-shadow: var(--active-color) 0 0 var(--large-border-size) var(--large-border-size);
+}
+
+.list .item.active:active {
+  box-shadow: inset var(--bland-color) 0 0 var(--large-border-size) var(--large-border-size);
+}
+
+.list .item .item-title {
+  font-weight: var(--normal-font-bold);
+}
+  
+  

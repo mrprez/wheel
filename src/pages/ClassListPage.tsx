@@ -21,9 +21,9 @@ export default function ClassListPage(props :ClassListPageProps) {
     return (
         <>
             <header>
-                Liste des classes
+                <h1>Liste des classes</h1>
             </header>
-            <main>
+            <main className='class-list-page'>
                 <ClassListComponent list={classList} goToClassCallback={props.goToClassCallback}/>
                 <NoClassStoredMessage classCount={classList.length}/>
                 <AddClassButton onClick={() => setAddClassDialogDisplayed(true)}/>
@@ -53,7 +53,7 @@ type AddClassButtonProps = {
 function AddClassButton({onClick} : AddClassButtonProps) {
     return (
         <div className="addClassCtn">
-            <button onClick={onClick}>Ajouter</button>
+            <button className='btn' onClick={onClick}>Ajouter</button>
         </div>
     );
 }

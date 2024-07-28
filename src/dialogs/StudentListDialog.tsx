@@ -1,4 +1,4 @@
-import { Ref, RefObject, forwardRef, useCallback, useRef, useState } from "react";
+import { Ref, RefObject, forwardRef, useRef, useState } from "react";
 import Student from "../model/Student";
 
 type StudentListDialogProps = {
@@ -20,12 +20,26 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
     setStudentList(props.studentList); 
   };
 
+  const createStudentCallback = (student :Student) => setStudentList([...studentList, student]);
+  const updateStudentCallback = (studentUpdate :Student) => {
+    setStudentList(studentList.map((student) => {
+      if (student.key == studentUpdate.key) {
+        return studentUpdate;
+      } else {
+        return student;
+      }
+    }))
+  };
+  const deleteStudentCallback = (deletedStudent :Student) => {
+    setStudentList(studentList.filter(student => student != deletedStudent));
+  }
+
   return (
       <dialog ref={ref}>
         <form method="dialog">
-          {studentList.map((student) => <StudentLine firstname={student.firstname} lastname={student.lastname} editable={false}/>)}
+          {studentList.map((student) => <StudentLine student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>)}
           {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
-          <AddStudentLine classId={props.classId} validateCallback={(student) => setStudentList([...studentList, student])}/>
+          <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>
         </form>
         <div className="buttonsCtn">
           <button onClick={validateCallback}>Valider</button>
@@ -84,33 +98,41 @@ function AddStudentLine(props :AddStudentLineProps) {
 
 
 type StudentLineProps = {
-    firstname :string,
-    lastname :string,
-    editable :boolean
+    student :Student,
+    updateCallback :(student :Student) => void,
+    deleteCallback :(student :Student) => void
 }
 
 function StudentLine(props :StudentLineProps) {
-    const [editable, setEditable] = useState(props.editable);
+    const [editable, setEditable] = useState(false);
 
     const firstnameInput = useRef<HTMLInputElement>(null);
     const lastnameInput = useRef<HTMLInputElement>(null);
 
     const cancelCallback = () => {
       if (firstnameInput.current && lastnameInput.current) {
-        firstnameInput.current.value = props.firstname;
-        lastnameInput.current.value = props.lastname;
+        firstnameInput.current.value = props.student.firstname;
+        lastnameInput.current.value = props.student.lastname;
         setEditable(false);
       }
     };
-    
+    const validateCallback = () => {
+      if (firstnameInput.current && lastnameInput.current) {
+        props.updateCallback(new Student(props.student.key, props.student.classId, firstnameInput.current.value, lastnameInput.current.value));
+      }
+    };
+    const deleteCallback = () => {
+      props.deleteCallback(props.student);
+    }
+
     return (
       <div>
-        <input type="text" value={props.firstname} ref={firstnameInput} disabled={!editable} autoFocus/>
-        <input type="text" value={props.lastname} ref={lastnameInput} disabled={!editable}/>
-        <button type="button" className={editable ? "" : "hidden"}>Valider</button>
+        <input type="text" value={props.student.firstname} ref={firstnameInput} disabled={!editable} autoFocus/>
+        <input type="text" value={props.student.lastname} ref={lastnameInput} disabled={!editable}/>
+        <button type="button" className={editable ? "" : "hidden"} onClick={validateCallback}>Valider</button>
         <button type="button" className={editable ? "" : "hidden"} onClick={cancelCallback}>Annuler</button>
         <button type="button" className={editable ? "hidden" : ""} onClick={() => setEditable(true)}>Modifier</button>
-        <button type="button" className={editable ? "hidden" : ""}>Supprimer</button>
+        <button type="button" className={editable ? "hidden" : ""} onClick={deleteCallback}>Supprimer</button>
       </div>
     );
 }
