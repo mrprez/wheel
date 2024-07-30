@@ -25,6 +25,20 @@ h1 {
   box-shadow: inset var(--bland-color) 0 0 var(--large-border-size) var(--large-border-size);
 }
 
+.btn.btn-icon {
+  height: calc(var(--big-font-size) + 2 * var(--small-spacing));
+  width: calc(var(--big-font-size) + 2 * var(--small-spacing));
+  display: flex;
+  padding: var(--small-spacing);
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+/* Icon */
+
 
 /* Liste d'éléments */
 .list {
@@ -45,7 +59,9 @@ h1 {
   flex-direction: row;
   justify-content: start;
   align-items: center;
+  gap: var(--normal-spacing);
   cursor: pointer;
+  min-height: calc(var(--big-font-size) + 2 * var(--small-spacing) + 2 * var(--small-spacing));
 }
 
 .list .item.active:hover {
@@ -58,6 +74,15 @@ h1 {
 
 .list .item .item-title {
   font-weight: var(--normal-font-bold);
+  font-size: var(--big-font-size);
+}
+
+.list .item .item-content {
+  flex: 1 1 auto;
+}
+
+.list .item .actions {
+  flex: 0 0 auto;
 }
 
 
@@ -122,3 +147,4 @@ input[type='text']:focus-within, input[type='text']:active {
   outline-color: var(--active-color);
   box-shadow: var(--active-color) 0 0 var(--thin-border-size) var(--thin-border-size);
 }
+
