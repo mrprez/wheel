@@ -1,5 +1,5 @@
 import StudentClass from '../model/StudentClass';
-import { EditIcon } from './icons/EditIcon';
+import { DeleteIcon, EditIcon } from './icons/Icons';
 
 type ClassListProps = {
     list: StudentClass[],
@@ -29,6 +29,9 @@ function ClassListItem({studentClass, goToClassCallback} : ClassListItemProps) {
                 <span className='item-title'>{studentClass.name}</span>
             </div>
             <div className='actions'>
+                <button className='btn btn-icon'>
+                    <DeleteIcon />
+                </button>
                 <button className='btn btn-icon'>
                     <EditIcon />
                 </button>

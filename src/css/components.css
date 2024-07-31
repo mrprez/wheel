@@ -26,12 +26,15 @@ h1 {
 }
 
 .btn.btn-icon {
-  height: calc(var(--big-font-size) + 2 * var(--small-spacing));
-  width: calc(var(--big-font-size) + 2 * var(--small-spacing));
+  height: calc(var(--normal-font-size) + 2 * var(--small-spacing));
+  width: calc(var(--normal-font-size) + 2 * var(--small-spacing));
   display: flex;
   padding: var(--small-spacing);
   align-items: center;
   justify-content: center;
+  outline: var(--thin-border-size) solid var(--active-color);
+  background-color: var(--text-color);
+  color: var(--active-color);
 }
 
 
@@ -47,7 +50,6 @@ h1 {
   justify-content: start;
   align-items: stretch;
   gap: var(--normal-spacing);
-  padding: var(--normal-spacing);
 }
 
 .list .item {
@@ -75,14 +77,19 @@ h1 {
 .list .item .item-title {
   font-weight: var(--normal-font-bold);
   font-size: var(--big-font-size);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .list .item .item-content {
   flex: 1 1 auto;
+  min-width: 0;
 }
 
 .list .item .actions {
   flex: 0 0 auto;
+  gap: var(--normal-spacing);
 }
 
 
