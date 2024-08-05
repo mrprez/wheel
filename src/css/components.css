@@ -62,8 +62,11 @@ h1 {
   justify-content: start;
   align-items: center;
   gap: var(--normal-spacing);
-  cursor: pointer;
   min-height: calc(var(--big-font-size) + 2 * var(--small-spacing) + 2 * var(--small-spacing));
+}
+
+.list .item.active {
+  cursor: pointer;
 }
 
 .list .item.active:hover {

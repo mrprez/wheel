@@ -3,14 +3,20 @@ import { DeleteIcon, EditIcon } from './icons/Icons';
 
 type ClassListProps = {
     list: StudentClass[],
-    goToClassCallback: (studentClass: StudentClass) => void
+    goToClassCallback: (studentClass: StudentClass) => void,
+    editClassCallback: (studentClass: StudentClass) => void,
 }
 
 
-export default function ClassListComponent({list, goToClassCallback}: ClassListProps) {
+export default function ClassListComponent(props: ClassListProps) {
     return (
         <div className='list'>
-            {list.map(studentClass => <ClassListItem key={studentClass.id} studentClass={studentClass} goToClassCallback={goToClassCallback}/>)}
+            {props.list.map((studentClass) => 
+                <ClassListItem key={studentClass.id}
+                    name={studentClass.name}
+                    goToClassCallback={() => props.goToClassCallback(studentClass)}
+                    editClassCallback={() => props.editClassCallback(studentClass)}/>
+            )}
         </div> 
     );
 }
@@ -18,15 +24,16 @@ export default function ClassListComponent({list, goToClassCallback}: ClassListP
 
 type ClassListItemProps = {
     key :number,
-    studentClass: StudentClass,
-    goToClassCallback: (studentClass: StudentClass) => void
+    name: string,
+    goToClassCallback: () => void,
+    editClassCallback: () => void
 };
 
-function ClassListItem({studentClass, goToClassCallback} : ClassListItemProps) {
+function ClassListItem(props :ClassListItemProps) {
     return (
-        <div className='item active' onClick={() => goToClassCallback(studentClass)}>
+        <div className='item active' onClick={props.goToClassCallback}>
             <div className='item-content'>
-                <span className='item-title'>{studentClass.name}</span>
+                <span className='item-title'>{props.name}</span>
             </div>
             <div className='actions'>
                 <button className='btn btn-icon'>
