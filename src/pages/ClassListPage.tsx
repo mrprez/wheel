@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
 import StudentClass from '../model/StudentClass';
-import AddClassDialog from '../dialogs/AddClassDialog';
 import studentClassDao from '../dao/StudentClassDao';
 import ListComponent, {ListItemProps} from '../components/ListComponent';
 import StudentClassDialog from '../dialogs/StudentClassDialog';
 import ConfirmDialog, { ConfirmDialogProps } from '../dialogs/ConfirmDialog';
-import { text } from 'stream/consumers';
 
 
 type ClassListPageProps = {
@@ -100,15 +98,3 @@ function NoClassStoredMessage({classCount} : NoClassStoredMessageProps) {
     return null;
 }
 
-
-type AddClassButtonProps = {
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
-
-function AddClassButton({onClick} : AddClassButtonProps) {
-    return (
-        <div className="addClassCtn">
-            <button className='btn' onClick={onClick}>Ajouter</button>
-        </div>
-    );
-}
