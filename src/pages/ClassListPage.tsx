@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import StudentClass from '../model/StudentClass';
 import AddClassDialog from '../dialogs/AddClassDialog';
 import studentClassDao from '../dao/StudentClassDao';
-import ListComponent, {ListItemProps, ListProps} from '../components/ListComponent';
+import ListComponent, {ListItemProps} from '../components/ListComponent';
+import StudentClassDialog from '../dialogs/StudentClassDialog';
 
 
 type ClassListPageProps = {
@@ -11,18 +12,36 @@ type ClassListPageProps = {
 
 export default function ClassListPage(props :ClassListPageProps) {
     const [classList, setClassList] = useState(studentClassDao.listClasses());
-    const [addClassDialogDisplayed, setAddClassDialogDisplayed] = useState(false);
+    const [editedClass, setEditedClass] = useState<StudentClass>(new StudentClass(0, ""));
+    
+    const studentClassDialogRef = useRef<HTMLDialogElement>(null);
 
-    const addClassCallback = (newClass: StudentClass) => {
-        studentClassDao.createClass(newClass);
+    const validateClassDialogCallback = (newClass: StudentClass) => {
+        if (newClass.id > 0) {
+            studentClassDao.updateClass(newClass);
+        } else {
+            studentClassDao.createClass(newClass);
+        }
         setClassList(studentClassDao.listClasses());
+    }
+    const addClassCallback = () => {
+        if (studentClassDialogRef.current) {
+            setEditedClass(new StudentClass(0, ""));
+            studentClassDialogRef.current.showModal();
+        }
     }
 
     const classListItems = classList.map((studentClass :StudentClass) => (
         {
-            key: studentClass.id,
+            id: studentClass.id,
             title: studentClass.name,
-            onClickCallback: () => {props.goToClassCallback(studentClass)}
+            onClickCallback: () => {props.goToClassCallback(studentClass)},
+            editCallback: () => {
+                if (studentClassDialogRef.current) {
+                    setEditedClass(studentClass);
+                    studentClassDialogRef.current.showModal();
+                }
+            }
         } as ListItemProps
     ));
 
@@ -34,10 +53,10 @@ export default function ClassListPage(props :ClassListPageProps) {
             <main className='class-list-page'>
                 <ListComponent items={classListItems}/>
                 <NoClassStoredMessage classCount={classList.length}/>
-                <AddClassButton onClick={() => setAddClassDialogDisplayed(true)}/>
-                <AddClassDialog displayed={addClassDialogDisplayed} 
-                        callback={addClassCallback}
-                        onClose={() => setAddClassDialogDisplayed(false)}/>
+                <div className="addClassCtn">
+                    <button className='btn' onClick={addClassCallback}>Ajouter</button>
+                </div>
+                <StudentClassDialog studentClass={editedClass} validateCallback={validateClassDialogCallback} ref={studentClassDialogRef}/>
             </main>
         </>
     );

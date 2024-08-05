@@ -23,6 +23,12 @@ class StudentClassDao {
     localStorage.setItem(StudentClassDao.CLASSES_KEY, JSON.stringify(classList));
   }
 
+  public updateClass(updatedStudentClass :StudentClass): void {
+    const classList = this.listClasses();
+    const updatedClassList = classList.map(studentClass => studentClass.id === updatedStudentClass.id ? updatedStudentClass : studentClass);
+    localStorage.setItem(StudentClassDao.CLASSES_KEY, JSON.stringify(updatedClassList));
+  }
+
   
   public listClassStudents(id :number): Student[] {
     const sudentListAsString = localStorage.getItem(StudentClassDao.STUDENTS_PREFIX + id);
