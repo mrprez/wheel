@@ -4,6 +4,8 @@ import AddClassDialog from '../dialogs/AddClassDialog';
 import studentClassDao from '../dao/StudentClassDao';
 import ListComponent, {ListItemProps} from '../components/ListComponent';
 import StudentClassDialog from '../dialogs/StudentClassDialog';
+import ConfirmDialog, { ConfirmDialogProps } from '../dialogs/ConfirmDialog';
+import { text } from 'stream/consumers';
 
 
 type ClassListPageProps = {
@@ -13,8 +15,14 @@ type ClassListPageProps = {
 export default function ClassListPage(props :ClassListPageProps) {
     const [classList, setClassList] = useState(studentClassDao.listClasses());
     const [editedClass, setEditedClass] = useState<StudentClass>(new StudentClass(0, ""));
+    const [confirmDialogProps, setConfirmDialogProps] = useState<ConfirmDialogProps>({
+        title: "",
+        text: "",
+        validateCallback: () => null
+    });
     
     const studentClassDialogRef = useRef<HTMLDialogElement>(null);
+    const confirmDialogRef = useRef<HTMLDialogElement>(null);
 
     const validateClassDialogCallback = (newClass: StudentClass) => {
         if (newClass.id > 0) {
@@ -41,6 +49,19 @@ export default function ClassListPage(props :ClassListPageProps) {
                     setEditedClass(studentClass);
                     studentClassDialogRef.current.showModal();
                 }
+            },
+            deleteCallback: () => {
+                setConfirmDialogProps({
+                    title: 'Supprimer la classe ?',
+                    text: 'Etes vous sûr de vouloir supprimer cette classse avec tous ces élèves ?',
+                    validateCallback: () => {
+                        studentClassDao.deleteClass(studentClass.id);
+                        setClassList(studentClassDao.listClasses());
+                    }
+                });
+                if (confirmDialogRef.current) {
+                    confirmDialogRef.current.showModal();
+                }
             }
         } as ListItemProps
     ));
@@ -57,6 +78,7 @@ export default function ClassListPage(props :ClassListPageProps) {
                     <button className='btn' onClick={addClassCallback}>Ajouter</button>
                 </div>
                 <StudentClassDialog studentClass={editedClass} validateCallback={validateClassDialogCallback} ref={studentClassDialogRef}/>
+                <ConfirmDialog {...confirmDialogProps} ref={confirmDialogRef}/>
             </main>
         </>
     );

@@ -29,6 +29,12 @@ class StudentClassDao {
     localStorage.setItem(StudentClassDao.CLASSES_KEY, JSON.stringify(updatedClassList));
   }
 
+  public deleteClass(classId :number) {
+    const classList = this.listClasses();
+    const fiteredClassList = classList.filter((studentClass :StudentClass) => studentClass.id !== classId);
+    localStorage.setItem(StudentClassDao.CLASSES_KEY, JSON.stringify(fiteredClassList));
+  }
+
   
   public listClassStudents(id :number): Student[] {
     const sudentListAsString = localStorage.getItem(StudentClassDao.STUDENTS_PREFIX + id);
