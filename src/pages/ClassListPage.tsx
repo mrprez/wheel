@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import StudentClass from '../model/StudentClass';
 import AddClassDialog from '../dialogs/AddClassDialog';
 import studentClassDao from '../dao/StudentClassDao';
-import ListComponent, {ListItemProps} from '../components/ListComponent';
+import ListComponent, {ListItemProps, ListProps} from '../components/ListComponent';
 
 
 type ClassListPageProps = {
@@ -22,7 +22,7 @@ export default function ClassListPage(props :ClassListPageProps) {
         {
             key: studentClass.id,
             title: studentClass.name,
-            onClickCallback: () => props.goToClassCallback(studentClass)
+            onClickCallback: () => {props.goToClassCallback(studentClass)}
         } as ListItemProps
     ));
 
