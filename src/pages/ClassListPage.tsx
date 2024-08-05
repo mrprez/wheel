@@ -70,6 +70,8 @@ export default function ClassListPage(props :ClassListPageProps) {
         } as ListItemProps
     ));
 
+    const noClassStoredMessage = classList.length === 0 ? <div>Aucune classe enregistrée</div> : null
+
     return (
         <>
             <header>
@@ -77,7 +79,7 @@ export default function ClassListPage(props :ClassListPageProps) {
             </header>
             <main className='class-list-page'>
                 <ListComponent items={classListItems}/>
-                <NoClassStoredMessage classCount={classList.length}/>
+                {noClassStoredMessage}
                 <div className="addClassCtn">
                     <button className='btn' onClick={addClassCallback}>Ajouter</button>
                 </div>
@@ -86,15 +88,5 @@ export default function ClassListPage(props :ClassListPageProps) {
             </main>
         </>
     );
-}
-
-
-type NoClassStoredMessageProps = { classCount :number };
-
-function NoClassStoredMessage({classCount} : NoClassStoredMessageProps) {
-    if (classCount === 0) {
-        return <div>Aucune classe enregistrée</div>;
-    }
-    return null;
 }
 
