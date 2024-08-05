@@ -48,7 +48,7 @@ export default function ClassListPage(props :ClassListPageProps) {
         return () => {
             setConfirmDialogProps({
                 title: 'Supprimer la classe ?',
-                text: 'Etes vous sûr de vouloir supprimer cette classse avec tous ces élèves ?',
+                text: 'Etes-vous sûr de vouloir supprimer la classe "' + studentClass.name + '" avec tous ces élèves ?',
                 validateCallback: () => {
                     studentClassDao.deleteClass(studentClass.id);
                     setClassList(studentClassDao.listClasses());

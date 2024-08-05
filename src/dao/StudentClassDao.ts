@@ -6,17 +6,21 @@ class StudentClassDao {
   private static STUDENTS_PREFIX = "students_";
   private static STUDENT_MAX_ID_KEY = "student_max_id";
 
-  public listClasses(): StudentClass[] {
+
+  private listAllClasses(): StudentClass[] {
     const classsesAsString = localStorage.getItem(StudentClassDao.CLASSES_KEY)
-    
     if (!classsesAsString) {
       return [];
     }
     return JSON.parse(classsesAsString) as StudentClass[];
   }
 
+  public listClasses(): StudentClass[] {
+    return this.listAllClasses().filter(studentClass => !studentClass.deleted);
+  }
+
   public createClass(studentClass :StudentClass): void {
-    const classList = this.listClasses();
+    const classList = this.listAllClasses();
     const idMax = classList.map(studentClass => studentClass.id).reduce((previousId, currentId) => Math.max(previousId, currentId), 0);
     studentClass.id = idMax + 1;
     classList.push(studentClass);
@@ -24,15 +28,19 @@ class StudentClassDao {
   }
 
   public updateClass(updatedStudentClass :StudentClass): void {
-    const classList = this.listClasses();
+    const classList = this.listAllClasses();
     const updatedClassList = classList.map(studentClass => studentClass.id === updatedStudentClass.id ? updatedStudentClass : studentClass);
     localStorage.setItem(StudentClassDao.CLASSES_KEY, JSON.stringify(updatedClassList));
   }
 
   public deleteClass(classId :number) {
-    const classList = this.listClasses();
-    const fiteredClassList = classList.filter((studentClass :StudentClass) => studentClass.id !== classId);
-    localStorage.setItem(StudentClassDao.CLASSES_KEY, JSON.stringify(fiteredClassList));
+    const classList = this.listAllClasses();
+    classList.forEach(studentClass => {
+      if (studentClass.id === classId) {
+        studentClass.deleted = true;
+      }
+    });
+    localStorage.setItem(StudentClassDao.CLASSES_KEY, JSON.stringify(classList));
   }
 
   
