@@ -31,38 +31,44 @@ export default function ClassListPage(props :ClassListPageProps) {
             studentClassDao.createClass(newClass);
         }
         setClassList(studentClassDao.listClasses());
-    }
+    };
     const addClassCallback = () => {
         if (studentClassDialogRef.current) {
             setEditedClass(new StudentClass(0, ""));
             studentClassDialogRef.current.showModal();
         }
-    }
+    };
+    const editCallbackBuilder = (studentClass :StudentClass) => {
+        return () => {
+            if (studentClassDialogRef.current) {
+                setEditedClass(studentClass);
+                studentClassDialogRef.current.showModal();
+            }
+        };
+    };
+    const deleteCallbackBuilder = (studentClass :StudentClass) => {
+        return () => {
+            setConfirmDialogProps({
+                title: 'Supprimer la classe ?',
+                text: 'Etes vous sûr de vouloir supprimer cette classse avec tous ces élèves ?',
+                validateCallback: () => {
+                    studentClassDao.deleteClass(studentClass.id);
+                    setClassList(studentClassDao.listClasses());
+                }
+            });
+            if (confirmDialogRef.current) {
+                confirmDialogRef.current.showModal();
+            }
+        };
+    };
 
     const classListItems = classList.map((studentClass :StudentClass) => (
         {
             id: studentClass.id,
             title: studentClass.name,
             onClickCallback: () => {props.goToClassCallback(studentClass)},
-            editCallback: () => {
-                if (studentClassDialogRef.current) {
-                    setEditedClass(studentClass);
-                    studentClassDialogRef.current.showModal();
-                }
-            },
-            deleteCallback: () => {
-                setConfirmDialogProps({
-                    title: 'Supprimer la classe ?',
-                    text: 'Etes vous sûr de vouloir supprimer cette classse avec tous ces élèves ?',
-                    validateCallback: () => {
-                        studentClassDao.deleteClass(studentClass.id);
-                        setClassList(studentClassDao.listClasses());
-                    }
-                });
-                if (confirmDialogRef.current) {
-                    confirmDialogRef.current.showModal();
-                }
-            }
+            editCallback: editCallbackBuilder(studentClass),
+            deleteCallback: deleteCallbackBuilder(studentClass)
         } as ListItemProps
     ));
 
