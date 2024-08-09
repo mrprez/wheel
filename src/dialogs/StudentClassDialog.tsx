@@ -12,6 +12,10 @@ export default forwardRef(function StudentClassDialog(props :StudentClassDialogP
 
     const classNameInputRef = useRef<HTMLInputElement>(null);
 
+    if (classNameInputRef.current) {
+        classNameInputRef.current.value = className;
+    }
+
     const validateCallback = () => {
         if (classNameInputRef.current) {
             const newStudentClass = new StudentClass(classId, classNameInputRef.current?.value);
