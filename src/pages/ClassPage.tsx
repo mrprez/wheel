@@ -26,7 +26,7 @@ export default function ClassPage(props :ClassPageProps) {
                 <button className="back-btn"><BackIcon/></button>
                 <h1>Classe {props.studentClass.name}</h1>
                 <div className="toolbar">
-                    <button className="btn" onClick={() => studentListDialogRef.current?.showModal()} title="Liste des élèves">
+                    <button className="btn btn-icon" onClick={() => studentListDialogRef.current?.showModal()} title="Liste des élèves">
                         <MenuIcon/>
                     </button>
                 </div>

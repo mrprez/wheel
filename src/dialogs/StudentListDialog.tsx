@@ -36,26 +36,28 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
 
   return (
       <dialog ref={ref}>
-        <form method="dialog">
-          {studentList.map((student) => <StudentLine student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>)}
-          {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
-          <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>
-        </form>
-        <div className="buttonsCtn">
-          <button onClick={validateCallback}>Valider</button>
-          <button onClick={cancelCallback}>Annuler</button>
-        </div>
+          <form method="dialog" className="dialog-content">
+              {studentList.map((student) =>
+                  <StudentLine student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
+              )}
+              {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
+              <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>
+              <div className="dialog-buttons">
+                  <button className="btn" onClick={validateCallback}>Valider</button>
+                  <button className="btn secondary" onClick={cancelCallback}>Annuler</button>
+              </div>
+          </form>
       </dialog>
-    );
+  );
 });
 
 
 type AddStudentLineProps = {
-  classId :number,
-  validateCallback :(student :Student) => void
+    classId: number,
+    validateCallback: (student: Student) => void
 }
 
-function AddStudentLine(props :AddStudentLineProps) {
+function AddStudentLine(props: AddStudentLineProps) {
   const [formDisplayed, displayForm] = useState(false);
   
   const firstnameInput = useRef<HTMLInputElement>(null);
@@ -90,7 +92,7 @@ function AddStudentLine(props :AddStudentLineProps) {
   } else {
     return (
       <div>
-        <button type="button" onClick={() => displayForm(true)}>Ajouter un élève</button>
+        <button className="btn" type="button" onClick={() => displayForm(true)}>Ajouter un élève</button>
       </div>
     );
   }

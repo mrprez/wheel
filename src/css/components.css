@@ -38,9 +38,6 @@ h1 {
   padding: var(--small-spacing);
   align-items: center;
   justify-content: center;
-  outline: var(--thin-border-size) solid var(--active-color);
-  background-color: var(--text-color);
-  color: var(--active-color);
 }
 
 .back-btn {
@@ -112,6 +109,12 @@ h1 {
 .list .item .actions {
   flex: 0 0 auto;
   gap: var(--small-spacing);
+}
+
+.list .item .actions .btn {
+  outline: var(--thin-border-size) solid var(--active-color);
+  background-color: var(--text-color);
+  color: var(--active-color);
 }
 
 
