@@ -17,13 +17,14 @@ export default function ClassPage(props :ClassPageProps) {
     const studentListDialogRef = useRef<HTMLDialogElement>(null);
 
     const saveStudentListCallback = (studentList :Student[]) => {
+        setStudentList(studentList);
         studentClassDao.saveStudentList(props.studentClass.id, studentList);
     };
 
     return (
         <>
             <header>
-                <button className="back-btn"><BackIcon/></button>
+                <button className="back-btn" onClick={props.goToClassListCallback}><BackIcon/></button>
                 <h1>Classe {props.studentClass.name}</h1>
                 <div className="toolbar">
                     <button className="btn btn-icon" onClick={() => studentListDialogRef.current?.showModal()} title="Liste des élèves">

@@ -32,8 +32,6 @@ export function BackIcon() {
     );
 }
 
-
-
 export function MenuIcon() {
     return (
         <svg className="icon" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
@@ -41,6 +39,25 @@ export function MenuIcon() {
             <line x1="4" y1="4" x2="20" y2="4"/>
             <line x1="4" y1="12" x2="20" y2="12"/>
             <line x1="4" y1="20" x2="20" y2="20"/>
+        </svg>
+    );
+}
+
+export function CheckIcon() {
+    return (
+        <svg className="icon" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
+             strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12 l6 6 l10 -10 "/>
+        </svg>
+    );
+}
+
+export function CrossIcon() {
+    return (
+        <svg className="icon" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
+             strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="4" x2="20" y2="20"/>
+            <line x1="4" y1="20" x2="20" y2="4"/>
         </svg>
     );
 }

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1124e5f8-e036-4fed-aa44-87ea0f53b7ee" name="Changes" comment="header toolbar">
+    <list default="true" id="1124e5f8-e036-4fed-aa44-87ea0f53b7ee" name="Changes" comment="Début de style de StudentListDialog.tsx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/components.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/Icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/icons/Icons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dialogs/StudentListDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dialogs/StudentListDialog.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/ClassPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ClassPage.tsx" afterDir="false" />
     </list>
@@ -79,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1718539485161</updated>
       <workItem from="1718539492458" duration="135000" />
-      <workItem from="1723237278457" duration="3980000" />
+      <workItem from="1723237278457" duration="8372000" />
     </task>
     <task id="LOCAL-00001" summary="Correction StudentClassDialog">
       <option name="closed" value="true" />
@@ -105,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723241690432</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Début de style de StudentListDialog.tsx">
+      <option name="closed" value="true" />
+      <created>1723242924195</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723242924195</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +124,7 @@
     <MESSAGE value="Correction StudentClassDialog" />
     <MESSAGE value="Bouton retour" />
     <MESSAGE value="header toolbar" />
-    <option name="LAST_COMMIT_MESSAGE" value="header toolbar" />
+    <MESSAGE value="Début de style de StudentListDialog.tsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="Début de style de StudentListDialog.tsx" />
   </component>
 </project>

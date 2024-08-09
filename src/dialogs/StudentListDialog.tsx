@@ -1,5 +1,6 @@
 import { Ref, RefObject, forwardRef, useRef, useState } from "react";
 import Student from "../model/Student";
+import {CheckIcon, CrossIcon, DeleteIcon, EditIcon} from "../components/icons/Icons";
 
 type StudentListDialogProps = {
     classId :number,
@@ -35,7 +36,7 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
   }
 
   return (
-      <dialog ref={ref}>
+      <dialog className="student-list-dialog" ref={ref}>
           <form method="dialog" className="dialog-content">
               {studentList.map((student) =>
                   <StudentLine student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
@@ -82,11 +83,13 @@ function AddStudentLine(props: AddStudentLineProps) {
 
   if (formDisplayed) {
     return (
-      <div>
-        <input type="text" ref={firstnameInput} autoFocus/>
-        <input type="text" ref={lastnameInput}/>
-        <button type="button" onClick={validateCallback}>Valider</button>
-        <button type="button" onClick={cancelCallback}>Annuler</button>
+      <div className="student-line">
+        <input type="text" placeholder="Prénom" ref={firstnameInput} autoFocus/>
+        <input type="text" placeholder="Nom" ref={lastnameInput}/>
+        <div className="toolbar">
+          <button className="btn btn-icon" type="button" onClick={validateCallback}><CheckIcon/></button>
+          <button className="btn btn-icon" type="button" onClick={cancelCallback}><CrossIcon/></button>
+        </div>
       </div>
     );
   } else {
@@ -128,13 +131,15 @@ function StudentLine(props :StudentLineProps) {
     }
 
     return (
-      <div>
+      <div className="student-line">
         <input type="text" value={props.student.firstname} ref={firstnameInput} disabled={!editable} autoFocus/>
         <input type="text" value={props.student.lastname} ref={lastnameInput} disabled={!editable}/>
-        <button type="button" className={editable ? "" : "hidden"} onClick={validateCallback}>Valider</button>
-        <button type="button" className={editable ? "" : "hidden"} onClick={cancelCallback}>Annuler</button>
-        <button type="button" className={editable ? "hidden" : ""} onClick={() => setEditable(true)}>Modifier</button>
-        <button type="button" className={editable ? "hidden" : ""} onClick={deleteCallback}>Supprimer</button>
+        <div className="toolbar">
+          {editable &&  <button type="button" className="btn btn-icon" onClick={validateCallback}><CheckIcon/></button>}
+          {editable &&  <button type="button" className="btn btn-icon" onClick={cancelCallback}><CrossIcon/></button>}
+          {!editable && <button type="button" className="btn btn-icon" onClick={() => setEditable(true)}><EditIcon/></button>}
+          {!editable && <button type="button" className="btn btn-icon" onClick={deleteCallback}><DeleteIcon/></button>}
+        </div>
       </div>
     );
 }
