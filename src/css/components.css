@@ -43,7 +43,24 @@ h1 {
   color: var(--active-color);
 }
 
+.back-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
 
+.back-btn:hover {
+  background-color: var(--text-color);
+  color: var(--active-color);
+}
+
+.back-btn:active {
+  box-shadow: inset var(--bland-color) 0 0 var(--large-border-size) var(--large-border-size);
+}
 
 /* Liste d'éléments */
 .list {

@@ -3,6 +3,7 @@ import studentClassDao from "../dao/StudentClassDao";
 import { useRef, useState } from "react";
 import StudentListDialog from "../dialogs/StudentListDialog";
 import Student from "../model/Student";
+import {BackIcon} from "../components/icons/Icons";
 
 
 type ClassPageProps = {
@@ -22,8 +23,8 @@ export default function ClassPage(props :ClassPageProps) {
     return (
         <>
             <header>
-                <GoToClassListButton onClick={props.goToClassListCallback}/>
-                <div>Classe {props.studentClass.name}</div>
+                <button className="back-btn"><BackIcon/></button>
+                <h1>Classe {props.studentClass.name}</h1>
                 <button onClick={() => studentListDialogRef.current?.showModal()}>Liste des élèves</button>
             </header>
             <main>
