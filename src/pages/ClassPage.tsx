@@ -3,7 +3,7 @@ import studentClassDao from "../dao/StudentClassDao";
 import { useRef, useState } from "react";
 import StudentListDialog from "../dialogs/StudentListDialog";
 import Student from "../model/Student";
-import {BackIcon} from "../components/icons/Icons";
+import {BackIcon, MenuIcon} from "../components/icons/Icons";
 
 
 type ClassPageProps = {
@@ -25,7 +25,11 @@ export default function ClassPage(props :ClassPageProps) {
             <header>
                 <button className="back-btn"><BackIcon/></button>
                 <h1>Classe {props.studentClass.name}</h1>
-                <button onClick={() => studentListDialogRef.current?.showModal()}>Liste des élèves</button>
+                <div className="toolbar">
+                    <button className="btn" onClick={() => studentListDialogRef.current?.showModal()} title="Liste des élèves">
+                        <MenuIcon/>
+                    </button>
+                </div>
             </header>
             <main>
                 <StudentListDialog classId={props.studentClass.id} studentList={studentList} ref={studentListDialogRef} validateCallback={saveStudentListCallback}/>
@@ -33,19 +37,3 @@ export default function ClassPage(props :ClassPageProps) {
         </>
     );
 }
-
-
-type GoToClassListButtonProps = {
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
-
-function GoToClassListButton({onClick} : GoToClassListButtonProps) {
-    return (
-        <div className="ClassListBtnCtn">
-            <button onClick={onClick}>Liste des classes</button>
-        </div>
-    );
-}
-
-
-

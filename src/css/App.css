@@ -43,6 +43,18 @@
   flex: 1 1 auto;
 }
 
+.App header .toolbar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--small-spacing);
+  padding: 0 var(--small-spacing);
+  height: var(--header-height);
+  min-width: var(--header-height);
+}
+
 .App main {
   flex: 1 1 auto;
   min-height: 0;

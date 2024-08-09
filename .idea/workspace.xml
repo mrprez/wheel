@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1124e5f8-e036-4fed-aa44-87ea0f53b7ee" name="Changes" comment="Correction StudentClassDialog">
+    <list default="true" id="1124e5f8-e036-4fed-aa44-87ea0f53b7ee" name="Changes" comment="header toolbar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/icons/Icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/icons/Icons.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/css/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/components.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/ClassPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ClassPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1718539485161</updated>
       <workItem from="1718539492458" duration="135000" />
-      <workItem from="1723237278457" duration="2666000" />
+      <workItem from="1723237278457" duration="3602000" />
     </task>
     <task id="LOCAL-00001" summary="Correction StudentClassDialog">
       <option name="closed" value="true" />
@@ -90,7 +89,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723239764409</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Bouton retour">
+      <option name="closed" value="true" />
+      <created>1723240810438</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723240810438</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -98,6 +105,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Correction StudentClassDialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correction StudentClassDialog" />
+    <MESSAGE value="Bouton retour" />
+    <MESSAGE value="header toolbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="header toolbar" />
   </component>
 </project>
