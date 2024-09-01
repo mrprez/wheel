@@ -196,7 +196,7 @@ input[type='text']:focus-within, input[type='text']:active {
 }
 
 .wheel .wheel-arc-group:nth-child(odd) .wheel-arc {
-    fill: color-mix(in srgb, var(--active-color) 25%, var(--text-color) 75%);
+  fill: color-mix(in srgb, var(--active-color) 25%, var(--text-color) 75%);
 }
 .wheel .wheel-arc-group:nth-child(even) .wheel-arc {
   fill: color-mix(in srgb, var(--active-color) 25%, var(--background-color) 75%);
