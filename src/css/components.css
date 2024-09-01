@@ -180,3 +180,31 @@ input[type='text']:focus-within, input[type='text']:active {
   box-shadow: var(--active-color) 0 0 var(--thin-border-size) var(--thin-border-size);
 }
 
+
+/* Roue */
+.wheel {
+  display: flex;
+  flex: 1 1 auto;
+  max-height: 100%;
+  max-width: 100%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.wheel .wheel-arc-group .wheel-arc {
+  stroke: var(--text-color);
+}
+
+.wheel .wheel-arc-group:nth-child(odd) .wheel-arc {
+    fill: color-mix(in srgb, var(--active-color) 25%, var(--text-color) 75%);
+}
+.wheel .wheel-arc-group:nth-child(even) .wheel-arc {
+  fill: color-mix(in srgb, var(--active-color) 25%, var(--background-color) 75%);
+}
+
+.wheel .wheel-arc-group:nth-child(odd) .wheel-arc-text {
+  fill: var(--background-color);
+}
+.wheel .wheel-arc-group:nth-child(even) .wheel-arc-text {
+  fill: var(--text-color);
+}

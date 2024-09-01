@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1124e5f8-e036-4fed-aa44-87ea0f53b7ee" name="Changes" comment="Début de style de StudentListDialog.tsx">
+    <list default="true" id="1124e5f8-e036-4fed-aa44-87ea0f53b7ee" name="Changes" comment="StudentListDialog.tsx">
+      <change afterPath="$PROJECT_DIR$/src/components/WheelComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/icons/Icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/icons/Icons.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/css/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dialogs/StudentListDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/dialogs/StudentListDialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/components.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/ClassPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ClassPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,18 +22,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "mrprez"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mrprez&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:mrprez/wheel.git",
-    "accountId": "6c30b70a-7b7d-41f0-b917-10e2084aaade"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:mrprez/wheel.git&quot;,
+    &quot;accountId&quot;: &quot;6c30b70a-7b7d-41f0-b917-10e2084aaade&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -47,22 +47,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\Developpements\\gitProjects\\wheel\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Developpements\\gitProjects\\wheel\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -80,7 +80,8 @@
       <option name="presentableId" value="Default" />
       <updated>1718539485161</updated>
       <workItem from="1718539492458" duration="135000" />
-      <workItem from="1723237278457" duration="8372000" />
+      <workItem from="1723237278457" duration="9622000" />
+      <workItem from="1725181699178" duration="5689000" />
     </task>
     <task id="LOCAL-00001" summary="Correction StudentClassDialog">
       <option name="closed" value="true" />
@@ -114,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723242924195</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="StudentListDialog.tsx">
+      <option name="closed" value="true" />
+      <created>1723246863178</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1723246863178</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +134,7 @@
     <MESSAGE value="Bouton retour" />
     <MESSAGE value="header toolbar" />
     <MESSAGE value="Début de style de StudentListDialog.tsx" />
-    <option name="LAST_COMMIT_MESSAGE" value="Début de style de StudentListDialog.tsx" />
+    <MESSAGE value="StudentListDialog.tsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="StudentListDialog.tsx" />
   </component>
 </project>

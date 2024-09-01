@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import StudentListDialog from "../dialogs/StudentListDialog";
 import Student from "../model/Student";
 import {BackIcon, MenuIcon} from "../components/icons/Icons";
+import WheelComponent from "../components/WheelComponent";
 
 
 type ClassPageProps = {
@@ -33,6 +34,8 @@ export default function ClassPage(props :ClassPageProps) {
                 </div>
             </header>
             <main>
+                <WheelComponent students={studentList}/>
+
                 <StudentListDialog classId={props.studentClass.id} studentList={studentList} ref={studentListDialogRef} validateCallback={saveStudentListCallback}/>
             </main>
         </>
