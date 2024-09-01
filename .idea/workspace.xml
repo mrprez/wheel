@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1124e5f8-e036-4fed-aa44-87ea0f53b7ee" name="Changes" comment="StudentListDialog.tsx">
-      <change afterPath="$PROJECT_DIR$/src/components/WheelComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/App.css" afterDir="false" />
+    <list default="true" id="1124e5f8-e036-4fed-aa44-87ea0f53b7ee" name="Changes" comment="Ajout de la roue">
       <change beforePath="$PROJECT_DIR$/src/css/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/components.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ClassPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ClassPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +77,7 @@
       <updated>1718539485161</updated>
       <workItem from="1718539492458" duration="135000" />
       <workItem from="1723237278457" duration="9622000" />
-      <workItem from="1725181699178" duration="5689000" />
+      <workItem from="1725181699178" duration="6018000" />
     </task>
     <task id="LOCAL-00001" summary="Correction StudentClassDialog">
       <option name="closed" value="true" />
@@ -123,7 +119,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723246863178</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Ajout de la roue">
+      <option name="closed" value="true" />
+      <created>1725226457283</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1725226457283</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +139,7 @@
     <MESSAGE value="header toolbar" />
     <MESSAGE value="Début de style de StudentListDialog.tsx" />
     <MESSAGE value="StudentListDialog.tsx" />
-    <option name="LAST_COMMIT_MESSAGE" value="StudentListDialog.tsx" />
+    <MESSAGE value="Ajout de la roue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la roue" />
   </component>
 </project>
