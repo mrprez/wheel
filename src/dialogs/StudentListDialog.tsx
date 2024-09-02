@@ -24,7 +24,7 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
   const createStudentCallback = (student :Student) => setStudentList([...studentList, student]);
   const updateStudentCallback = (studentUpdate :Student) => {
     setStudentList(studentList.map((student) => {
-      if (student.key == studentUpdate.key) {
+      if (student.key === studentUpdate.key) {
         return studentUpdate;
       } else {
         return student;
@@ -32,14 +32,14 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
     }))
   };
   const deleteStudentCallback = (deletedStudent :Student) => {
-    setStudentList(studentList.filter(student => student != deletedStudent));
+    setStudentList(studentList.filter(student => student !== deletedStudent));
   }
 
   return (
       <dialog className="student-list-dialog" ref={ref}>
           <form method="dialog" className="dialog-content">
               {studentList.map((student) =>
-                  <StudentLine student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
+                  <StudentLine key={student.key} student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
               )}
               {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
               <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>

@@ -1,4 +1,5 @@
 import Student from "../model/Student";
+import {useRef} from "react";
 
 const WHEEL_RADIUS = 500;
 
@@ -8,19 +9,35 @@ export type WheelProps = {
 }
 
 export default function WheelComponent(props: WheelProps) {
+    const wheelArcsRef = useRef<SVGGElement>(null);
+    const wheelRotation = () => {
+        if (wheelArcsRef.current) {
+            if (! wheelArcsRef.current.style.getPropertyValue('--rotation')) {
+                const rotation = Math.floor((3 + Math.random()) * 360);
+                wheelArcsRef.current.style.setProperty('--rotation', rotation + 'deg');
+                wheelArcsRef.current.classList.add('rotating');
+            }
+        }
+    }
+
     const weightSum = props.students.length;
     let angle = 0;
     return (
         <div className="wheel-ctn">
             <svg className='wheel' viewBox={'0 0 ' + (WHEEL_RADIUS * 2) + ' ' + (WHEEL_RADIUS * 2)}>
-                {props.students.map((student, index) =>
-                    <WheelArc key={index} index={index}
-                              text={getStudentName(student)}
-                              startAngle={angle}
-                              endAngle={angle=angle + 2 * Math.PI * 1 / weightSum }/>
-                )}
-                {props.students.length === 0 ? <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/> : null}
+                <g className="wheel-arcs" ref={wheelArcsRef}>
+                    {props.students.map((student, index) =>
+                        <WheelArc key={index} index={index}
+                                  text={getStudentName(student)}
+                                  startAngle={angle}
+                                  endAngle={angle=angle + 2 * Math.PI * 1 / weightSum }/>
+                    )}
+                    {props.students.length === 0 ? <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/> : null}
+                </g>
             </svg>
+            <div className="wheel-btn-ctn">
+                <button className="btn large" onClick={wheelRotation}>Lancer</button>
+            </div>
         </div>
     );
 }
@@ -48,7 +65,7 @@ function WheelArc(props :WheelArcProps) {
     );
     const arc = <path d={describeArc(WHEEL_RADIUS, WHEEL_RADIUS, WHEEL_RADIUS * 0.99, props.startAngle, props.endAngle)} className="wheel-arc"/>
     const text = props.text ? (
-        <text font-size="25" className="wheel-arc-text">
+        <text fontSize="25" className="wheel-arc-text">
             <textPath href={'#text-' + props.index}>{props.text}</textPath>
         </text>
     ) : null;

@@ -1,6 +1,6 @@
 h1 {
   font-size: var(--huge-font-size);
-  font-weight: var(----normal-font-bold);
+  font-weight: var(--normal-font-bold);
 }
 
 
@@ -38,6 +38,11 @@ h1 {
   padding: var(--small-spacing);
   align-items: center;
   justify-content: center;
+}
+
+.btn.large {
+  font-size: var(--bigger-font-size);
+  padding: var(--normal-spacing);
 }
 
 .back-btn {
@@ -185,6 +190,7 @@ input[type='text']:focus-within, input[type='text']:active {
 .wheel-ctn {
   flex: 1 1 auto;
   display: flex;
+  gap: var(--normal-spacing);
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -200,24 +206,42 @@ input[type='text']:focus-within, input[type='text']:active {
   min-width: 0;
 }
 
-.wheel-ctn .wheel .wheel-arc-group .wheel-arc {
+.wheel-ctn .wheel .wheel-arcs .wheel-arc-group .wheel-arc {
   stroke: var(--text-color);
 }
 
-.wheel-ctn .wheel .wheel-arc-group:first-child:last-child .wheel-arc {
+.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:first-child:last-child .wheel-arc {
   stroke: none;
 }
 
-.wheel-ctn .wheel .wheel-arc-group:nth-child(odd) .wheel-arc {
+.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:nth-child(odd) .wheel-arc {
   fill: color-mix(in srgb, var(--active-color) 25%, var(--text-color) 75%);
 }
-.wheel-ctn .wheel .wheel-arc-group:nth-child(even) .wheel-arc {
+.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:nth-child(even) .wheel-arc {
   fill: color-mix(in srgb, var(--active-color) 25%, var(--background-color) 75%);
 }
 
-.wheel-ctn .wheel .wheel-arc-group:nth-child(odd) .wheel-arc-text {
+.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:nth-child(odd) .wheel-arc-text {
   fill: var(--background-color);
 }
-.wheel-ctn .wheel .wheel-arc-group:nth-child(even) .wheel-arc-text {
+.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:nth-child(even) .wheel-arc-text {
   fill: var(--text-color);
+}
+
+.wheel-ctn .wheel .wheel-arcs {
+  --rotation: 0;
+  transform-origin: center;
+}
+
+.wheel-ctn .wheel .wheel-arcs.rotating {
+  animation: wheel-rotate 5s ease-in-out 1 normal forwards;
+}
+
+@keyframes wheel-rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(var(--rotation));
+  }
 }
