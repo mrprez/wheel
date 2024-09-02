@@ -2,24 +2,39 @@ import Student from "../model/Student";
 
 const WHEEL_RADIUS = 500;
 
+
 export type WheelProps = {
     students: Student[],
 }
 
-
-
 export default function WheelComponent(props: WheelProps) {
+    if (props.students.length === 0) {
+        return (
+            <div className="wheel-ctn">
+                <div className='empty-wheel'>
+                    <p>Aucun élève n'est enregistré dans cette classe.</p>
+                    <p>Ajoutez des élèves dans cette classe pour pouvoir faire tourner la roue.</p>
+                </div>
+                <svg className='wheel' viewBox={'0 0 ' + (WHEEL_RADIUS * 2) + ' ' + (WHEEL_RADIUS * 2)}>
+                    <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/>
+                </svg>
+            </div>
+        );
+    }
+
     const weightSum = props.students.length;
     let angle = 0;
     return (
-        <svg className='wheel' viewBox={'0 0 '+(WHEEL_RADIUS*2)+' '+(WHEEL_RADIUS*2)}>
-            {props.students.map((student, index) =>
-                <WheelArc key={index} index={index}
-                          text={getStudentName(student)}
-                          startAngle={angle}
-                          endAngle={angle=angle + 2 * Math.PI * 1 / weightSum }/>
-            )}
-        </svg>
+        <div className="wheel-ctn">
+            <svg className='wheel' viewBox={'0 0 ' + (WHEEL_RADIUS * 2) + ' ' + (WHEEL_RADIUS * 2)}>
+                {props.students.map((student, index) =>
+                    <WheelArc key={index} index={index}
+                              text={getStudentName(student)}
+                              startAngle={angle}
+                              endAngle={angle=angle + 2 * Math.PI * 1 / weightSum }/>
+                )}
+            </svg>
+        </div>
     );
 }
 
@@ -34,29 +49,42 @@ type WheelArcProps = {
     index: number,
     startAngle: number,
     endAngle: number,
-    text: string
+    text?: string
 }
 
 function WheelArc(props :WheelArcProps) {
+    const defs = (
+        <defs>
+            <path id={'text-' + props.index}
+                  d={describeTextPath(WHEEL_RADIUS, WHEEL_RADIUS, WHEEL_RADIUS, props.startAngle, props.endAngle)}/>
+        </defs>
+    );
+    const arc = <path d={describeArc(WHEEL_RADIUS, WHEEL_RADIUS, WHEEL_RADIUS * 0.99, props.startAngle, props.endAngle)} className="wheel-arc"/>
+    const text = props.text ? (
+        <text font-size="25" className="wheel-arc-text">
+            <textPath href={'#text-' + props.index}>{props.text}</textPath>
+        </text>
+    ) : null;
+
     return (
         <g className="wheel-arc-group">
-            <defs>
-                <path id={'text-'+props.index} d={describeTextPath(WHEEL_RADIUS, WHEEL_RADIUS, WHEEL_RADIUS, props.startAngle, props.endAngle)}/>
-            </defs>
-            <path d={describeArc(WHEEL_RADIUS, WHEEL_RADIUS, WHEEL_RADIUS * 0.99, props.startAngle, props.endAngle)} className="wheel-arc"/>
-            <text font-size="25" className="wheel-arc-text">
-                <textPath href={'#text-'+props.index}>{props.text}</textPath>
-            </text>
+            {defs}
+            {arc}
+            {text}
         </g>
-);
+    );
 }
 
 function describeArc(cx: number, cy: number, radius: number, startAngle: number, endAngle: number): string {
-    const a = endAngle - startAngle >= Math.PI ? 1 : 0;
-    return "M " + cx + " " + cy + " "
-        + "L " + (cx + radius * Math.cos(startAngle)) + " " + (cy + radius * Math.sin(startAngle)) + " "
-        + "A " + radius + " " + radius + " 0 " + a + " 1 " + (cx + radius * Math.cos(endAngle)) + " " + (cy + radius * Math.sin(endAngle)) + " "
-        + "Z";
+    let path = "M " + cx + " " + cy + " ";
+    path = path  + "L " + (cx + radius * Math.cos(startAngle)) + " " + (cy + radius * Math.sin(startAngle)) + " ";
+    let angle = startAngle;
+    while (angle < endAngle) {
+        angle = Math.min(angle + Math.PI / 2, endAngle);
+        path = path + "A " + radius + " " + radius + " 0 0 1 " + (cx + radius * Math.cos(angle)) + " " + (cy + radius * Math.sin(angle)) + " ";
+    }
+    path = path + "Z";
+    return path;
 }
 
 function describeTextPath(cx: number, cy: number, radius: number, startAngle: number, endAngle: number): string {

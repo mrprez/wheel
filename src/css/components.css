@@ -182,7 +182,16 @@ input[type='text']:focus-within, input[type='text']:active {
 
 
 /* Roue */
-.wheel {
+.wheel-ctn {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.wheel-ctn .wheel {
   display: flex;
   flex: 1 1 auto;
   max-height: 100%;
@@ -191,20 +200,36 @@ input[type='text']:focus-within, input[type='text']:active {
   min-width: 0;
 }
 
-.wheel .wheel-arc-group .wheel-arc {
+.wheel-ctn .wheel .wheel-arc-group .wheel-arc {
   stroke: var(--text-color);
 }
 
-.wheel .wheel-arc-group:nth-child(odd) .wheel-arc {
+.wheel-ctn .wheel .wheel-arc-group:first-child:last-child .wheel-arc {
+  stroke: none;
+}
+
+.wheel-ctn .wheel .wheel-arc-group:nth-child(odd) .wheel-arc {
   fill: color-mix(in srgb, var(--active-color) 25%, var(--text-color) 75%);
 }
-.wheel .wheel-arc-group:nth-child(even) .wheel-arc {
+.wheel-ctn .wheel .wheel-arc-group:nth-child(even) .wheel-arc {
   fill: color-mix(in srgb, var(--active-color) 25%, var(--background-color) 75%);
 }
 
-.wheel .wheel-arc-group:nth-child(odd) .wheel-arc-text {
+.wheel-ctn .wheel .wheel-arc-group:nth-child(odd) .wheel-arc-text {
   fill: var(--background-color);
 }
-.wheel .wheel-arc-group:nth-child(even) .wheel-arc-text {
+.wheel-ctn .wheel .wheel-arc-group:nth-child(even) .wheel-arc-text {
   fill: var(--text-color);
+}
+
+.wheel-ctn .empty-wheel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--bigger-font-size);
+  position: absolute;
+  background-color: color-mix(in srgb, var(--text-color) 50%, #00000000);
+  color: var(--background-color);
+  padding: var(--normal-spacing);
 }
