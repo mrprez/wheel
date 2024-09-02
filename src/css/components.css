@@ -221,15 +221,3 @@ input[type='text']:focus-within, input[type='text']:active {
 .wheel-ctn .wheel .wheel-arc-group:nth-child(even) .wheel-arc-text {
   fill: var(--text-color);
 }
-
-.wheel-ctn .empty-wheel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--bigger-font-size);
-  position: absolute;
-  background-color: color-mix(in srgb, var(--text-color) 50%, #00000000);
-  color: var(--background-color);
-  padding: var(--normal-spacing);
-}

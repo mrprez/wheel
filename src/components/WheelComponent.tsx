@@ -8,20 +8,6 @@ export type WheelProps = {
 }
 
 export default function WheelComponent(props: WheelProps) {
-    if (props.students.length === 0) {
-        return (
-            <div className="wheel-ctn">
-                <div className='empty-wheel'>
-                    <p>Aucun élève n'est enregistré dans cette classe.</p>
-                    <p>Ajoutez des élèves dans cette classe pour pouvoir faire tourner la roue.</p>
-                </div>
-                <svg className='wheel' viewBox={'0 0 ' + (WHEEL_RADIUS * 2) + ' ' + (WHEEL_RADIUS * 2)}>
-                    <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/>
-                </svg>
-            </div>
-        );
-    }
-
     const weightSum = props.students.length;
     let angle = 0;
     return (
@@ -33,6 +19,7 @@ export default function WheelComponent(props: WheelProps) {
                               startAngle={angle}
                               endAngle={angle=angle + 2 * Math.PI * 1 / weightSum }/>
                 )}
+                {props.students.length === 0 ? <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/> : null}
             </svg>
         </div>
     );

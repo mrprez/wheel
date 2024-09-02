@@ -33,8 +33,9 @@ export default function ClassPage(props :ClassPageProps) {
                     </button>
                 </div>
             </header>
-            <main>
+            <main className="class-page">
                 <WheelComponent students={studentList}/>
+                {studentList.length === 0 ? <NoStudentMessage/> : null}
 
                 <StudentListDialog classId={props.studentClass.id} studentList={studentList} ref={studentListDialogRef} validateCallback={saveStudentListCallback}/>
             </main>
@@ -42,4 +43,11 @@ export default function ClassPage(props :ClassPageProps) {
     );
 }
 
-
+function NoStudentMessage() {
+    return (
+        <div className="no-student-message">
+            <p>Aucun élève dans cette classe.</p>
+            <p>Cliquez sur l'icône en haut à droite pour ajouter des élèves.</p>
+        </div>
+    );
+}
