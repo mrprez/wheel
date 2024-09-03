@@ -6,21 +6,26 @@ const WHEEL_RADIUS = 500;
 
 export type WheelProps = {
     students: Student[],
+    drawCallback: (student: Student) => void
 }
 
 export default function WheelComponent(props: WheelProps) {
+    const weightSum = props.students.reduce((sum, student) => sum + getStudentWeigth(student), 0);
+
     const wheelArcsRef = useRef<SVGGElement>(null);
     const wheelRotation = () => {
         if (wheelArcsRef.current) {
             if (! wheelArcsRef.current.style.getPropertyValue('--rotation')) {
-                const rotation = Math.floor((3 + Math.random()) * 360);
-                wheelArcsRef.current.style.setProperty('--rotation', rotation + 'deg');
+                const random = Math.random() * weightSum;
+                const drawnStudent = getDrawnStudent(props.students, random);
+                const rotation = Math.floor((3.25 + random / weightSum) * 360);
+                wheelArcsRef.current.style.setProperty('--rotation', -rotation + 'deg');
                 wheelArcsRef.current.classList.add('rotating');
+                props.drawCallback(drawnStudent);
             }
         }
     }
 
-    const weightSum = props.students.length;
     let angle = 0;
     return (
         <div className="wheel-ctn">
@@ -30,7 +35,7 @@ export default function WheelComponent(props: WheelProps) {
                         <WheelArc key={index} index={index}
                                   text={getStudentName(student)}
                                   startAngle={angle}
-                                  endAngle={angle=angle + 2 * Math.PI * 1 / weightSum }/>
+                                  endAngle={angle=angle + 2 * Math.PI * getStudentWeigth(student) / weightSum }/>
                     )}
                     {props.students.length === 0 ? <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/> : null}
                 </g>
@@ -47,6 +52,21 @@ function getStudentName(student: Student): string {
         return student.firstname;
     }
     return student.firstname + ' ' + student.lastname.substring(0, 1) + '.';
+}
+
+function getStudentWeigth(student: Student): number {
+    return 1 / Math.pow(2, student.drawCount);
+}
+
+function getDrawnStudent(studentList: Student[], random: number): Student {
+    let sum = 0;
+    for (const student of studentList) {
+        sum += getStudentWeigth(student);
+        if (sum >= random) {
+            return student;
+        }
+    }
+    throw new Error('No student found');
 }
 
 type WheelArcProps = {

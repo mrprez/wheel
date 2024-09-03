@@ -22,6 +22,12 @@ export default function ClassPage(props :ClassPageProps) {
         studentClassDao.saveStudentList(props.studentClass.id, studentList);
     };
 
+    const drawStudentCallback = (student :Student) => {
+        student.drawCount++;
+        const updatedStudentList = studentList.map((s) => s.key === student.key ? student : s);
+        // studentClassDao.saveStudentList(props.studentClass.id, updatedStudentList);
+    };
+
     return (
         <>
             <header>
@@ -34,7 +40,7 @@ export default function ClassPage(props :ClassPageProps) {
                 </div>
             </header>
             <main className="class-page">
-                <WheelComponent students={studentList}/>
+                <WheelComponent students={studentList} drawCallback={drawStudentCallback}/>
                 {studentList.length === 0 ? <NoStudentMessage/> : null}
 
                 <StudentListDialog classId={props.studentClass.id} studentList={studentList} ref={studentListDialogRef} validateCallback={saveStudentListCallback}/>
@@ -48,6 +54,15 @@ function NoStudentMessage() {
         <div className="no-student-message">
             <p>Aucun élève dans cette classe.</p>
             <p>Cliquez sur l'icône en haut à droite pour ajouter des élèves.</p>
+        </div>
+    );
+}
+
+function DrawnStudentMessage(props :{student :Student}) {
+    return (
+        <div className="drawn-student-message">
+            <p>{props.student.firstname} {props.student.lastname}</p>
+            <p>Bravo !</p>
         </div>
     );
 }
