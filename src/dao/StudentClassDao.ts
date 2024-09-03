@@ -1,10 +1,28 @@
 import Student from "../model/Student";
 import StudentClass from "../model/StudentClass";
 
+type StudentJson = {
+  key :number;
+  classId :number;
+  firstname :string;
+  lastname :string;
+  drawCount :number;
+}
+
+type StudentClassJson = {
+  id :number;
+  name: string;
+  deleted: boolean;
+}
+
+
 class StudentClassDao {
   private static CLASSES_KEY = "classes";
   private static STUDENTS_PREFIX = "students_";
   private static STUDENT_MAX_ID_KEY = "student_max_id";
+
+
+
 
 
   private listAllClasses(): StudentClass[] {
@@ -12,7 +30,12 @@ class StudentClassDao {
     if (!classsesAsString) {
       return [];
     }
-    return JSON.parse(classsesAsString) as StudentClass[];
+    const json = JSON.parse(classsesAsString) as StudentClassJson[];
+    return json.map((studentClassJson) => {
+      const studentClass = new StudentClass(studentClassJson.id, studentClassJson.name);
+      studentClass.deleted = studentClassJson.deleted;
+        return studentClass;
+    });
   }
 
   public listClasses(): StudentClass[] {
@@ -49,7 +72,12 @@ class StudentClassDao {
     if (!sudentListAsString) {
       return [];
     }
-    return JSON.parse(sudentListAsString) as Student[];
+    const json = JSON.parse(sudentListAsString) as StudentJson[];
+    return json.map((studentJson) => {
+      const student = new Student(studentJson.key, studentJson.classId, studentJson.firstname, studentJson.lastname)
+      student.drawCount = studentJson.drawCount;
+      return student;
+    });
   }
 
 

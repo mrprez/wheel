@@ -13,9 +13,15 @@ class Student {
         this.drawCount = 0;
     }
 
-    public copy(): Student {
+    copy(): Student {
         const copy = new Student(this.key, this.classId, this.firstname, this.lastname);
         copy.drawCount = this.drawCount;
+        return copy;
+    }
+
+    draw() {
+        const copy = new Student(this.key, this.classId, this.firstname, this.lastname);
+        copy.drawCount = this.drawCount + 1;
         return copy;
     }
 }

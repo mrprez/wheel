@@ -23,9 +23,8 @@ export default function ClassPage(props :ClassPageProps) {
     };
 
     const drawStudentCallback = (student :Student) => {
-        student.drawCount++;
-        const updatedStudentList = studentList.map((s) => s.key === student.key ? student : s);
-        // studentClassDao.saveStudentList(props.studentClass.id, updatedStudentList);
+        const updatedStudentList = studentList.map((s) => s.key === student.key ? s.draw() : s.copy());
+        studentClassDao.saveStudentList(props.studentClass.id, updatedStudentList);
     };
 
     return (
