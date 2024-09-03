@@ -113,8 +113,8 @@ function describeArc(cx: number, cy: number, radius: number, startAngle: number,
 
 function describeTextPath(cx: number, cy: number, radius: number, startAngle: number, endAngle: number): string {
     const angle = (startAngle + endAngle) / 2;
-    const startRadius = radius * 0.1;
-    const endRadius = radius * 0.9;
+    const startRadius = radius * 0.9;
+    const endRadius = radius * 0.1;
     return "M " + (cx + startRadius * Math.cos(angle)) + " " + (cy + startRadius * Math.sin(angle)) + " "
         + "L " + (cx + endRadius * Math.cos(angle)) + " " + (cy + endRadius * Math.sin(angle));
 }
