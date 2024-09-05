@@ -99,6 +99,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .App .class-page .no-student-message {
@@ -118,4 +119,56 @@
 .App .class-page .wheel-ctn {
   width: 100%;
   height: 100%;
+}
+
+.App .class-page .drawn-student-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: calc(100% + var(--big-spacing));
+  transition: top 5s;
+  transition-timing-function: linear;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: var(--big-spacing);
+  border-radius: var(--border-radius);
+  border: var(--thin-border-size) solid var(--text-color);
+  outline: var(--thin-border-size) solid var(--active-color);
+  min-width: 50%;
+  animation-name: drawn-student-message;
+  animation-delay: var(--animation-duration);
+  animation-duration: var(--animation-duration);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes drawn-student-message {
+  from {
+    top: calc(100% + var(--big-spacing));
+    box-shadow: var(--active-color) 0 0 0 0;
+  }
+  to {
+    top: var(--big-spacing);
+    box-shadow: var(--active-color) 0 0 var(--big-spacing) var(--big-spacing);
+  }
+}
+
+.App .class-page .drawn-student-message .title {
+  font-size: var(--huge-font-size);
+  text-align: center;
+}
+
+.App .class-page .drawn-student-message .subtitle {
+  font-size: var(--big-font-size);
+  text-align: center;
+}
+
+.App .class-page .drawn-student-message .buttons {
+  margin-top: var(--big-spacing);
+  display: flex;
+  flex-direction: row;
+  gap: var(--normal-spacing);
 }

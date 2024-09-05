@@ -16,7 +16,7 @@ enum Page {
 
 function App() {
   const [currentPage, setCurrentPage] = useState(Page.CLASS_LIST);
-  const [currentClass, setCurrentClass] = useState(null as unknown as StudentClass);
+  const [currentClass, setCurrentClass] = useState<StudentClass>(new StudentClass(0, ""));
   const goToClassCallback = (studentClass :StudentClass) => {
     setCurrentPage(Page.CLASS_WHEEL);
     setCurrentClass(studentClass);

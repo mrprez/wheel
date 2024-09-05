@@ -14,7 +14,8 @@ type ClassPageProps = {
 
 export default function ClassPage(props :ClassPageProps) {
     const [studentList, setStudentList] = useState(studentClassDao.listClassStudents(props.studentClass.id));
-    
+    const [drawnStudent, setDrawnStudent] = useState<Student | null>(null);
+
     const studentListDialogRef = useRef<HTMLDialogElement>(null);
 
     const saveStudentListCallback = (studentList :Student[]) => {
@@ -23,8 +24,21 @@ export default function ClassPage(props :ClassPageProps) {
     };
 
     const drawStudentCallback = (student :Student) => {
-        const updatedStudentList = studentList.map((s) => s.key === student.key ? s.draw() : s.copy());
+        const updatedStudentList = studentList.map((s) => {
+            if (s.key === student.key) {
+                const updatedStudent = s.draw();
+                setDrawnStudent(updatedStudent);
+                return updatedStudent;
+            } else {
+                return s.copy();
+            }
+        });
         studentClassDao.saveStudentList(props.studentClass.id, updatedStudentList);
+    };
+
+    const cancelDrawCallback = () => {
+        studentClassDao.saveStudentList(props.studentClass.id, studentList);
+        setDrawnStudent(null);
     };
 
     return (
@@ -39,9 +53,9 @@ export default function ClassPage(props :ClassPageProps) {
                 </div>
             </header>
             <main className="class-page">
-                <WheelComponent students={studentList} drawCallback={drawStudentCallback}/>
+                {studentList.length > 0 ? <WheelComponent students={studentList} drawCallback={drawStudentCallback}/> : null}
                 {studentList.length === 0 ? <NoStudentMessage/> : null}
-
+                {drawnStudent ? <DrawnStudentMessage student={drawnStudent} cancelCallback={cancelDrawCallback}/> : null}
                 <StudentListDialog classId={props.studentClass.id} studentList={studentList} ref={studentListDialogRef} validateCallback={saveStudentListCallback}/>
             </main>
         </>
@@ -57,11 +71,20 @@ function NoStudentMessage() {
     );
 }
 
-function DrawnStudentMessage(props :{student :Student}) {
+type DrawnStudentMessageProps = {
+    student :Student,
+    cancelCallback :()=>void
+}
+
+function DrawnStudentMessage(props :DrawnStudentMessageProps) {
     return (
         <div className="drawn-student-message">
-            <p>{props.student.firstname} {props.student.lastname}</p>
-            <p>Bravo !</p>
+            <div className="title">{props.student.firstname} {props.student.lastname}</div>
+            <div className="draw-count">Tiré {props.student.drawCount} fois</div>
+            <div className="buttons">
+                <button className="btn secondary" onClick={props.cancelCallback}>Annuler</button>
+                <button className="btn">Fermer</button>
+            </div>
         </div>
     );
 }

@@ -24,6 +24,12 @@ class Student {
         copy.drawCount = this.drawCount + 1;
         return copy;
     }
+
+    cancelDraw() {
+        const copy = new Student(this.key, this.classId, this.firstname, this.lastname);
+        copy.drawCount = this.drawCount - 1;
+        return copy;
+    }
 }
 
 export default Student;

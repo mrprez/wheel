@@ -234,7 +234,7 @@ input[type='text']:focus-within, input[type='text']:active {
 }
 
 .wheel-ctn .wheel .wheel-arcs.rotating {
-  animation: wheel-rotate 5s ease-in-out 1 normal forwards;
+  animation: wheel-rotate var(--animation-duration) ease-in-out 1 normal forwards;
 }
 
 @keyframes wheel-rotate {

@@ -1,5 +1,5 @@
 import Student from "../model/Student";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 
 const WHEEL_RADIUS = 500;
 
@@ -11,14 +11,16 @@ export type WheelProps = {
 
 export default function WheelComponent(props: WheelProps) {
     const weightSum = props.students.reduce((sum, student) => sum + getStudentWeigth(student), 0);
+    const [rotation, setRotation] = useState<number|null>(null);
 
     const wheelArcsRef = useRef<SVGGElement>(null);
     const wheelRotation = () => {
         if (wheelArcsRef.current) {
-            if (! wheelArcsRef.current.style.getPropertyValue('--rotation')) {
+            if (! rotation) {
                 const random = Math.random() * weightSum;
                 const drawnStudent = getDrawnStudent(props.students, random);
                 const rotation = Math.floor((3.25 + random / weightSum) * 360);
+                setRotation(rotation);
                 wheelArcsRef.current.style.setProperty('--rotation', -rotation + 'deg');
                 wheelArcsRef.current.classList.add('rotating');
                 props.drawCallback(drawnStudent);

@@ -14,10 +14,13 @@
 
     --small-spacing: 0.5rem;
     --normal-spacing: 1rem;
+    --big-spacing: 1.5rem;
 
     --thin-border-size: 2px;
     --normal-border-size: 5px;
     --large-border-size: 0.25rem;
 
     --border-radius: 0.5rem;
+
+    --animation-duration: 5s;
 }
