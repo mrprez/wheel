@@ -232,11 +232,8 @@ input[type='text']:focus-within, input[type='text']:active {
   transition-timing-function: cubic-bezier(0, 0, 0.1, 1);
 }
 
-@keyframes wheel-rotate {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(var(--rotation));
-  }
+.wheel .wheel-indicator {
+  stroke: var(--active-color);
+  stroke-width: var(--normal-border-size);
+  fill: var(--text-color);
 }

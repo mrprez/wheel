@@ -23,6 +23,11 @@ export default function WheelComponent(props: WheelProps) {
                 )}
                 {props.students.length === 0 ? <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/> : null}
             </g>
+            <path d={'M ' + WHEEL_RADIUS*0.95 + ' ' + 0
+                + ' L ' + WHEEL_RADIUS + ' ' + WHEEL_RADIUS*0.1
+                + ' L ' + WHEEL_RADIUS*1.05 + ' ' + 0
+                + 'Z'} className="wheel-indicator" strokeWidth="5"/>
+
         </svg>
     );
 }
