@@ -187,17 +187,7 @@ input[type='text']:focus-within, input[type='text']:active {
 
 
 /* Roue */
-.wheel-ctn {
-  flex: 1 1 auto;
-  display: flex;
-  gap: var(--normal-spacing);
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.wheel-ctn .wheel {
+.wheel {
   display: flex;
   flex: 1 1 auto;
   max-height: 100%;
@@ -206,35 +196,40 @@ input[type='text']:focus-within, input[type='text']:active {
   min-width: 0;
 }
 
-.wheel-ctn .wheel .wheel-arcs .wheel-arc-group .wheel-arc {
+.wheel .wheel-arcs .wheel-arc-group .wheel-arc {
   stroke: var(--text-color);
 }
 
-.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:first-child:last-child .wheel-arc {
+.wheel .wheel-arcs .wheel-arc-group:first-child:last-child .wheel-arc {
   stroke: none;
 }
 
-.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:nth-child(odd) .wheel-arc {
+.wheel .wheel-arcs .wheel-arc-group:nth-child(odd) .wheel-arc {
   fill: color-mix(in srgb, var(--active-color) 25%, var(--text-color) 75%);
 }
-.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:nth-child(even) .wheel-arc {
+.wheel .wheel-arcs .wheel-arc-group:nth-child(even) .wheel-arc {
   fill: color-mix(in srgb, var(--active-color) 25%, var(--background-color) 75%);
 }
 
-.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:nth-child(odd) .wheel-arc-text {
+.wheel .wheel-arcs .wheel-arc-group:nth-child(odd) .wheel-arc-text {
   fill: var(--background-color);
 }
-.wheel-ctn .wheel .wheel-arcs .wheel-arc-group:nth-child(even) .wheel-arc-text {
+.wheel .wheel-arcs .wheel-arc-group:nth-child(even) .wheel-arc-text {
   fill: var(--text-color);
 }
 
-.wheel-ctn .wheel .wheel-arcs {
+.wheel .wheel-arcs {
   --rotation: 0;
   transform-origin: center;
+  transition-property: transform;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: linear;
+  transform: rotate(var(--rotation));
 }
 
-.wheel-ctn .wheel .wheel-arcs.rotating {
-  animation: wheel-rotate var(--animation-duration) ease-in-out 1 normal forwards;
+.wheel .wheel-arcs.rotating {
+  transition-duration: var(--normal-animation-duration);
+  transition-timing-function: cubic-bezier(0, 0, 0.1, 1);
 }
 
 @keyframes wheel-rotate {

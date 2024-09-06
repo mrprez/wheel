@@ -22,5 +22,7 @@
 
     --border-radius: 0.5rem;
 
-    --animation-duration: 5s;
+    --normal-animation-duration: 10s;
+    --fast-animation-duration: 2s;
+    --transition-duration: 0.5s;
 }

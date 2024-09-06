@@ -6,46 +6,24 @@ const WHEEL_RADIUS = 500;
 
 export type WheelProps = {
     students: Student[],
-    drawCallback: (student: Student) => void
+    rotation: number,
+    getStudentPart: (student: Student) => number
 }
 
 export default function WheelComponent(props: WheelProps) {
-    const weightSum = props.students.reduce((sum, student) => sum + getStudentWeigth(student), 0);
-    const [rotation, setRotation] = useState<number|null>(null);
-
-    const wheelArcsRef = useRef<SVGGElement>(null);
-    const wheelRotation = () => {
-        if (wheelArcsRef.current) {
-            if (! rotation) {
-                const random = Math.random() * weightSum;
-                const drawnStudent = getDrawnStudent(props.students, random);
-                const rotation = Math.floor((3.25 + random / weightSum) * 360);
-                setRotation(rotation);
-                wheelArcsRef.current.style.setProperty('--rotation', -rotation + 'deg');
-                wheelArcsRef.current.classList.add('rotating');
-                props.drawCallback(drawnStudent);
-            }
-        }
-    }
-
     let angle = 0;
     return (
-        <div className="wheel-ctn">
-            <svg className='wheel' viewBox={'0 0 ' + (WHEEL_RADIUS * 2) + ' ' + (WHEEL_RADIUS * 2)}>
-                <g className="wheel-arcs" ref={wheelArcsRef}>
-                    {props.students.map((student, index) =>
-                        <WheelArc key={index} index={index}
-                                  text={getStudentName(student)}
-                                  startAngle={angle}
-                                  endAngle={angle=angle + 2 * Math.PI * getStudentWeigth(student) / weightSum }/>
-                    )}
-                    {props.students.length === 0 ? <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/> : null}
-                </g>
-            </svg>
-            <div className="wheel-btn-ctn">
-                <button className="btn large" onClick={wheelRotation}>Lancer</button>
-            </div>
-        </div>
+        <svg className='wheel' viewBox={'0 0 ' + (WHEEL_RADIUS * 2) + ' ' + (WHEEL_RADIUS * 2)}>
+            <g className={'wheel-arcs ' + (props.rotation>0 ? 'rotating' : '')} style={{"--rotation": -props.rotation + 'deg'} as React.CSSProperties}>
+                {props.students.map((student, index) =>
+                    <WheelArc key={index} index={index}
+                              text={getStudentName(student)}
+                              startAngle={angle}
+                              endAngle={angle=angle + 2 * Math.PI * props.getStudentPart(student) }/>
+                )}
+                {props.students.length === 0 ? <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/> : null}
+            </g>
+        </svg>
     );
 }
 
@@ -54,21 +32,6 @@ function getStudentName(student: Student): string {
         return student.firstname;
     }
     return student.firstname + ' ' + student.lastname.substring(0, 1) + '.';
-}
-
-function getStudentWeigth(student: Student): number {
-    return 1 / Math.pow(2, student.drawCount);
-}
-
-function getDrawnStudent(studentList: Student[], random: number): Student {
-    let sum = 0;
-    for (const student of studentList) {
-        sum += getStudentWeigth(student);
-        if (sum >= random) {
-            return student;
-        }
-    }
-    throw new Error('No student found');
 }
 
 type WheelArcProps = {

@@ -15,6 +15,8 @@ type ClassPageProps = {
 export default function ClassPage(props :ClassPageProps) {
     const [studentList, setStudentList] = useState(studentClassDao.listClassStudents(props.studentClass.id));
     const [drawnStudent, setDrawnStudent] = useState<Student | null>(null);
+    const [rotation, setRotation] = useState(0);
+    const weightSum = studentList.reduce((sum, student) => sum + getStudentWeigth(student), 0);
 
     const studentListDialogRef = useRef<HTMLDialogElement>(null);
 
@@ -23,22 +25,37 @@ export default function ClassPage(props :ClassPageProps) {
         studentClassDao.saveStudentList(props.studentClass.id, studentList);
     };
 
-    const drawStudentCallback = (student :Student) => {
-        const updatedStudentList = studentList.map((s) => {
-            if (s.key === student.key) {
-                const updatedStudent = s.draw();
-                setDrawnStudent(updatedStudent);
-                return updatedStudent;
-            } else {
-                return s.copy();
-            }
-        });
-        studentClassDao.saveStudentList(props.studentClass.id, updatedStudentList);
+    const getStudentPart = (student: Student) => {
+        return getStudentWeigth(student) / weightSum;
+    }
+
+    const draw = () => {
+        if (!drawnStudent) {
+            const random = Math.random() * weightSum;
+            const drawnStudent = getDrawnStudent(studentList, random).draw();
+            const rotation = Math.floor((4.25 + random / weightSum) * 360);
+            studentClassDao.saveStudentList(props.studentClass.id, studentList.map((s) => {
+                if (s.key === drawnStudent.key) {
+                    return drawnStudent;
+                } else {
+                    return s.copy();
+                }
+            }));
+            setRotation(rotation);
+            setDrawnStudent(drawnStudent);
+        }
     };
 
     const cancelDrawCallback = () => {
         studentClassDao.saveStudentList(props.studentClass.id, studentList);
         setDrawnStudent(null);
+        setRotation(0);
+    };
+
+    const closeDrawCallback = () => {
+        setStudentList(studentClassDao.listClassStudents(props.studentClass.id));
+        setDrawnStudent(null);
+        setRotation(0);
     };
 
     return (
@@ -53,10 +70,12 @@ export default function ClassPage(props :ClassPageProps) {
                 </div>
             </header>
             <main className="class-page">
-                {studentList.length > 0 ? <WheelComponent students={studentList} drawCallback={drawStudentCallback}/> : null}
+                {studentList.length > 0 ? <WheelComponent students={studentList} rotation={rotation} getStudentPart={getStudentPart}/> : null}
+                {studentList.length > 0 ? <button className="btn large" onClick={draw}>Lancer</button> : null}
                 {studentList.length === 0 ? <NoStudentMessage/> : null}
-                {drawnStudent ? <DrawnStudentMessage student={drawnStudent} cancelCallback={cancelDrawCallback}/> : null}
-                <StudentListDialog classId={props.studentClass.id} studentList={studentList} ref={studentListDialogRef} validateCallback={saveStudentListCallback}/>
+                {drawnStudent ? <DrawnStudentMessage student={drawnStudent} cancelCallback={cancelDrawCallback} closeDrawCallback={closeDrawCallback}/> : null}
+                <StudentListDialog classId={props.studentClass.id} studentList={studentList} ref={studentListDialogRef}
+                                   validateCallback={saveStudentListCallback}/>
             </main>
         </>
     );
@@ -73,7 +92,8 @@ function NoStudentMessage() {
 
 type DrawnStudentMessageProps = {
     student :Student,
-    cancelCallback :()=>void
+    cancelCallback :()=>void,
+    closeDrawCallback :()=>void
 }
 
 function DrawnStudentMessage(props :DrawnStudentMessageProps) {
@@ -83,8 +103,25 @@ function DrawnStudentMessage(props :DrawnStudentMessageProps) {
             <div className="draw-count">Tiré {props.student.drawCount} fois</div>
             <div className="buttons">
                 <button className="btn secondary" onClick={props.cancelCallback}>Annuler</button>
-                <button className="btn">Fermer</button>
+                <button className="btn" onClick={props.closeDrawCallback}>Fermer</button>
             </div>
         </div>
     );
+}
+
+
+
+function getStudentWeigth(student: Student): number {
+    return 1 / Math.pow(2, student.drawCount);
+}
+
+function getDrawnStudent(studentList: Student[], random: number): Student {
+    let sum = 0;
+    for (const student of studentList) {
+        sum += getStudentWeigth(student);
+        if (sum >= random) {
+            return student;
+        }
+    }
+    throw new Error('No student found');
 }
