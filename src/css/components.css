@@ -128,6 +128,7 @@ dialog {
   border: var(--normal-border-size) solid var(--background-color);
   border-radius: var(--border-radius);
   padding: var(--normal-spacing);
+  max-height: calc(100% - 2 * var(--normal-spacing));
 }
 
 ::backdrop {
@@ -219,17 +220,7 @@ input[type='text']:focus-within, input[type='text']:active {
 }
 
 .wheel .wheel-arcs {
-  --rotation: 0;
   transform-origin: center;
-  transition-property: transform;
-  transition-duration: var(--transition-duration);
-  transition-timing-function: linear;
-  transform: rotate(var(--rotation));
-}
-
-.wheel .wheel-arcs.rotating {
-  transition-duration: var(--normal-animation-duration);
-  transition-timing-function: cubic-bezier(0, 0, 0.1, 1);
 }
 
 .wheel .wheel-indicator {

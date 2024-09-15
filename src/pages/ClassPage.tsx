@@ -33,9 +33,9 @@ export default function ClassPage(props :ClassPageProps) {
         if (!drawnStudent) {
             const random = Math.random() * weightSum;
             const drawnStudent = getDrawnStudent(studentList, random).draw();
-            const rotation = Math.floor((4.25 + random / weightSum) * 360);
+            const rotation = -Math.floor((4.25 + random / weightSum) * 360);
             studentClassDao.saveStudentList(props.studentClass.id, studentList.map((s) => {
-                if (s.key === drawnStudent.key) {
+                if (s.id === drawnStudent.id) {
                     return drawnStudent;
                 } else {
                     return s.copy();

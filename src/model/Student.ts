@@ -1,12 +1,12 @@
 class Student {
-    key :number;
+    id :number;
     classId :number;
     firstname :string;
     lastname :string;
     drawCount :number;
 
-    constructor(key :number, classId :number, firstname :string, lastname :string) {
-        this.key = key;
+    constructor(id :number, classId :number, firstname :string, lastname :string) {
+        this.id = id;
         this.classId = classId;
         this.firstname = firstname.trim();
         this.lastname = lastname.trim();
@@ -14,20 +14,14 @@ class Student {
     }
 
     copy(): Student {
-        const copy = new Student(this.key, this.classId, this.firstname, this.lastname);
+        const copy = new Student(this.id, this.classId, this.firstname, this.lastname);
         copy.drawCount = this.drawCount;
         return copy;
     }
 
     draw() {
-        const copy = new Student(this.key, this.classId, this.firstname, this.lastname);
+        const copy = new Student(this.id, this.classId, this.firstname, this.lastname);
         copy.drawCount = this.drawCount + 1;
-        return copy;
-    }
-
-    cancelDraw() {
-        const copy = new Student(this.key, this.classId, this.firstname, this.lastname);
-        copy.drawCount = this.drawCount - 1;
         return copy;
     }
 }

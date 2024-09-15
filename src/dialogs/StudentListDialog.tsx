@@ -10,7 +10,7 @@ type StudentListDialogProps = {
 
 
 export default forwardRef(function StudentListDialog(props :StudentListDialogProps, ref :Ref<HTMLDialogElement>) {
-  const [studentList, setStudentList] = useState(props.studentList.map((student) => new Student(student.key, student.classId, student.firstname, student.lastname)));
+  const [studentList, setStudentList] = useState(props.studentList.map((student) => new Student(student.id, student.classId, student.firstname, student.lastname)));
 
   const validateCallback = () => {
     props.validateCallback(studentList);
@@ -24,7 +24,7 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
   const createStudentCallback = (student :Student) => setStudentList([...studentList, student]);
   const updateStudentCallback = (studentUpdate :Student) => {
     setStudentList(studentList.map((student) => {
-      if (student.key === studentUpdate.key) {
+      if (student.id === studentUpdate.id) {
         return studentUpdate;
       } else {
         return student;
@@ -38,8 +38,8 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
   return (
       <dialog className="student-list-dialog" ref={ref}>
           <form method="dialog" className="dialog-content">
-              {studentList.map((student) =>
-                  <StudentLine key={student.key} student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
+              {studentList.map((student, index) =>
+                  <StudentLine key={index} student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
               )}
               {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
               <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>
@@ -123,7 +123,7 @@ function StudentLine(props :StudentLineProps) {
     };
     const validateCallback = () => {
       if (firstnameInput.current && lastnameInput.current) {
-        props.updateCallback(new Student(props.student.key, props.student.classId, firstnameInput.current.value, lastnameInput.current.value));
+        props.updateCallback(new Student(props.student.id, props.student.classId, firstnameInput.current.value, lastnameInput.current.value));
       }
     };
     const deleteCallback = () => {

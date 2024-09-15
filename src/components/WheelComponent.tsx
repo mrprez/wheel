@@ -1,5 +1,5 @@
 import Student from "../model/Student";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const WHEEL_RADIUS = 500;
 
@@ -11,10 +11,30 @@ export type WheelProps = {
 }
 
 export default function WheelComponent(props: WheelProps) {
+    const [actualRotation, setActualRotation] = useState(0);
+    const wheelArcsGroupRef = useRef<SVGGElement>(null);
+    useEffect(() => {
+        if (wheelArcsGroupRef.current) {
+            const rotationKeyFrames = [
+                { transform: "rotate(" + actualRotation + "deg)" },
+                { transform: "rotate(" + props.rotation + "deg)" }
+            ];
+            const rotationTiming = {
+                duration: props.rotation==0 ? 1000 : 10000,
+                iterations: 1,
+                fill: "forwards" as FillMode,
+                easing: "cubic-bezier(0, 0, 0.1, 1)"
+            };
+            const rotationAnimation = wheelArcsGroupRef.current.animate(rotationKeyFrames, rotationTiming);
+            rotationAnimation.finished.then(() => {
+                setActualRotation(props.rotation);
+            });
+        }
+    }, [props.rotation]);
     let angle = 0;
     return (
         <svg className='wheel' viewBox={'0 0 ' + (WHEEL_RADIUS * 2) + ' ' + (WHEEL_RADIUS * 2)}>
-            <g className={'wheel-arcs ' + (props.rotation>0 ? 'rotating' : '')} style={{"--rotation": -props.rotation + 'deg'} as React.CSSProperties}>
+            <g className="wheel-arcs" ref={wheelArcsGroupRef}>
                 {props.students.map((student, index) =>
                     <WheelArc key={index} index={index}
                               text={getStudentName(student)}

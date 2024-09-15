@@ -2,7 +2,7 @@ import Student from "../model/Student";
 import StudentClass from "../model/StudentClass";
 
 type StudentJson = {
-  key :number;
+  id :number;
   classId :number;
   firstname :string;
   lastname :string;
@@ -74,7 +74,7 @@ class StudentClassDao {
     }
     const json = JSON.parse(sudentListAsString) as StudentJson[];
     return json.map((studentJson) => {
-      const student = new Student(studentJson.key, studentJson.classId, studentJson.firstname, studentJson.lastname)
+      const student = new Student(studentJson.id, studentJson.classId, studentJson.firstname, studentJson.lastname)
       student.drawCount = studentJson.drawCount;
       return student;
     });
@@ -84,8 +84,8 @@ class StudentClassDao {
   public saveStudentList(classId :number, studentList :Student[]) {
     let studentMaxId = parseInt(localStorage.getItem(StudentClassDao.STUDENT_MAX_ID_KEY) || "0");
     studentList.forEach((student) => {
-      if (student.key === 0) {
-        student.key = ++studentMaxId;
+      if (student.id === 0) {
+        student.id = ++studentMaxId;
       }
     });
     localStorage.setItem(StudentClassDao.STUDENT_MAX_ID_KEY, studentMaxId.toString());
