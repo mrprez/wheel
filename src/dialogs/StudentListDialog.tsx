@@ -38,11 +38,14 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
   return (
       <dialog className="student-list-dialog" ref={ref}>
           <form method="dialog" className="dialog-content">
-              {studentList.map((student, index) =>
-                  <StudentLine key={index} student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
-              )}
-              {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
-              <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>
+              <div className="dialog-title">Liste des élèves</div>
+              <div className="dialog-main">
+                  {studentList.map((student, index) =>
+                      <StudentLine key={index} student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
+                  )}
+                  {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
+                  <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>
+              </div>
               <div className="dialog-buttons">
                   <button className="btn" onClick={validateCallback}>Valider</button>
                   <button className="btn secondary" onClick={cancelCallback}>Annuler</button>

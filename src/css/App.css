@@ -80,13 +80,18 @@
 }
 
 
-.App .student-list-dialog .student-line {
+.App .student-list-dialog .dialog-main {
+  align-items: center;
+  gap: var(--normal-spacing);
+}
+
+.App .student-list-dialog .dialog-main .student-line {
   display: flex;
   flex-direction: row;
   gap: var(--normal-spacing);
 }
 
-.App .student-list-dialog .student-line .toolbar {
+.App .student-list-dialog .dialog-main .student-line .toolbar {
   display: flex;
   flex-direction: row;
   gap: var(--small-spacing);
