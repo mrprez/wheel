@@ -40,10 +40,10 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
           <form method="dialog" className="dialog-content">
               <div className="dialog-title">Liste des élèves</div>
               <div className="dialog-main">
-                  {studentList.map((student, index) =>
+                  {props.studentList.map((student, index) =>
                       <StudentLine key={index} student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
                   )}
-                  {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
+                  {props.studentList.length === 0 && <div>Aucun élève enregistré.</div>}
                   <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>
               </div>
               <div className="dialog-buttons">
@@ -116,6 +116,7 @@ function StudentLine(props :StudentLineProps) {
 
     const firstnameInput = useRef<HTMLInputElement>(null);
     const lastnameInput = useRef<HTMLInputElement>(null);
+    const drawCountInput = useRef<HTMLInputElement>(null);
 
     const cancelCallback = () => {
       if (firstnameInput.current && lastnameInput.current) {
@@ -134,16 +135,17 @@ function StudentLine(props :StudentLineProps) {
     }
 
     return (
-      <div className="student-line">
-        <input type="text" value={props.student.firstname} ref={firstnameInput} disabled={!editable} autoFocus/>
-        <input type="text" value={props.student.lastname} ref={lastnameInput} disabled={!editable}/>
-        <div className="toolbar">
-          {editable &&  <button type="button" className="btn btn-icon" onClick={validateCallback}><CheckIcon/></button>}
-          {editable &&  <button type="button" className="btn btn-icon" onClick={cancelCallback}><CrossIcon/></button>}
-          {!editable && <button type="button" className="btn btn-icon" onClick={() => setEditable(true)}><EditIcon/></button>}
-          {!editable && <button type="button" className="btn btn-icon" onClick={deleteCallback}><DeleteIcon/></button>}
+        <div className="student-line">
+            <input type="text" defaultValue={props.student.firstname} ref={firstnameInput} disabled={!editable} autoFocus/>
+            <input type="text" defaultValue={props.student.lastname} ref={lastnameInput} disabled={!editable}/>
+            <input type="number" defaultValue={props.student.drawCount} ref={drawCountInput} disabled={!editable}/>
+            <div className="toolbar">
+                {editable && <button type="button" className="btn btn-icon" onClick={validateCallback}><CheckIcon/></button>}
+                {editable && <button type="button" className="btn btn-icon" onClick={cancelCallback}><CrossIcon/></button>}
+                {!editable && <button type="button" className="btn btn-icon" onClick={() => setEditable(true)}><EditIcon/></button>}
+                {!editable && <button type="button" className="btn btn-icon" onClick={deleteCallback}><DeleteIcon/></button>}
+            </div>
         </div>
-      </div>
     );
 }
 

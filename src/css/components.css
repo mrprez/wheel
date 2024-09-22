@@ -188,7 +188,7 @@ dialog .dialog-content .dialog-buttons .btn {
   align-items: center;
 }
 
-input[type='text'] {
+input[type='text'], input[type='number'] {
   appearance: none;
   outline: var(--thin-border-size) solid var(--border-color);
   padding: var(--small-spacing);
@@ -197,7 +197,11 @@ input[type='text'] {
   margin: var(--large-border-size);
 }
 
-input[type='text']:focus-within, input[type='text']:active {
+input[type='number'] {
+  width: 2rem;
+}
+
+input[type='text']:focus-within, input[type='text']:active, input[type='number']:focus-within, input[type='number']:active {
   outline-color: var(--active-color);
   box-shadow: var(--active-color) 0 0 var(--thin-border-size) var(--thin-border-size);
 }
