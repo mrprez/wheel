@@ -84,7 +84,7 @@ class StudentClassDao {
   public saveStudentList(classId :number, studentList :Student[]) {
     let studentMaxId = parseInt(localStorage.getItem(StudentClassDao.STUDENT_MAX_ID_KEY) || "0");
     studentList.forEach((student) => {
-      if (student.id === 0) {
+      if (student.id < 0) {
         student.id = ++studentMaxId;
       }
     });

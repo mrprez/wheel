@@ -40,10 +40,10 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
           <form method="dialog" className="dialog-content">
               <div className="dialog-title">Liste des élèves</div>
               <div className="dialog-main">
-                  {props.studentList.map((student, index) =>
-                      <StudentLine key={index} student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
+                  {studentList.map((student) =>
+                      <StudentLine key={student.id} student={student} updateCallback={updateStudentCallback} deleteCallback={deleteStudentCallback}/>
                   )}
-                  {props.studentList.length === 0 && <div>Aucun élève enregistré.</div>}
+                  {studentList.length === 0 && <div>Aucun élève enregistré.</div>}
                   <AddStudentLine classId={props.classId} validateCallback={createStudentCallback}/>
               </div>
               <div className="dialog-buttons">
@@ -63,13 +63,15 @@ type AddStudentLineProps = {
 
 function AddStudentLine(props: AddStudentLineProps) {
   const [formDisplayed, displayForm] = useState(false);
+  const [nextId, setNextId] = useState(-1);
   
   const firstnameInput = useRef<HTMLInputElement>(null);
   const lastnameInput = useRef<HTMLInputElement>(null);
 
   const validateCallback = () => {
     if (firstnameInput.current && lastnameInput.current) {
-      const student = new Student(0, props.classId, firstnameInput.current.value, lastnameInput.current.value);
+      const student = new Student(nextId, props.classId, firstnameInput.current.value, lastnameInput.current.value);
+      setNextId(nextId - 1);
       firstnameInput.current.value = "";
       lastnameInput.current.value = "";
       props.validateCallback(student);
