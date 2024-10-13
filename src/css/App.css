@@ -97,6 +97,10 @@
   gap: var(--small-spacing);
 }
 
+.App .student-list-dialog .dialog-main .student-line.add-student {
+  padding: var(--normal-spacing) 0;
+}
+
 
 .App .class-page {
   display: flex;

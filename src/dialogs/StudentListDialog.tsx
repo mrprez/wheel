@@ -1,6 +1,6 @@
-import { Ref, RefObject, forwardRef, useRef, useState } from "react";
+import {forwardRef, Ref, RefObject, useRef, useState} from "react";
 import Student from "../model/Student";
-import {CheckIcon, CrossIcon, DeleteIcon, EditIcon} from "../components/icons/Icons";
+import {CheckIcon, CrossIcon, DeleteIcon} from "../components/icons/Icons";
 
 type StudentListDialogProps = {
     classId :number,
@@ -10,7 +10,7 @@ type StudentListDialogProps = {
 
 
 export default forwardRef(function StudentListDialog(props :StudentListDialogProps, ref :Ref<HTMLDialogElement>) {
-  const [studentList, setStudentList] = useState(props.studentList.map((student) => new Student(student.id, student.classId, student.firstname, student.lastname)));
+  const [studentList, setStudentList] = useState(props.studentList.map((student) => student.copy()));
 
   const validateCallback = () => {
     props.validateCallback(studentList);
@@ -88,21 +88,21 @@ function AddStudentLine(props: AddStudentLineProps) {
 
   if (formDisplayed) {
     return (
-      <div className="student-line">
-        <input type="text" placeholder="Prénom" ref={firstnameInput} autoFocus/>
-        <input type="text" placeholder="Nom" ref={lastnameInput}/>
-        <div className="toolbar">
-          <button className="btn btn-icon" type="button" onClick={validateCallback}><CheckIcon/></button>
-          <button className="btn btn-icon" type="button" onClick={cancelCallback}><CrossIcon/></button>
+        <div className="student-line add-student">
+            <input type="text" placeholder="Prénom" ref={firstnameInput} autoFocus/>
+            <input type="text" placeholder="Nom" ref={lastnameInput}/>
+            <div className="toolbar">
+                <button className="btn btn-icon" type="button" onClick={validateCallback}><CheckIcon/></button>
+                <button className="btn btn-icon" type="button" onClick={cancelCallback}><CrossIcon/></button>
+            </div>
         </div>
-      </div>
     );
   } else {
-    return (
-      <div>
-        <button className="btn" type="button" onClick={() => displayForm(true)}>Ajouter un élève</button>
-      </div>
-    );
+      return (
+          <div>
+              <button className="btn" type="button" onClick={() => displayForm(true)}>Ajouter un élève</button>
+          </div>
+      );
   }
 }
 
@@ -114,38 +114,30 @@ type StudentLineProps = {
 }
 
 function StudentLine(props :StudentLineProps) {
-    const [editable, setEditable] = useState(false);
-
     const firstnameInput = useRef<HTMLInputElement>(null);
     const lastnameInput = useRef<HTMLInputElement>(null);
     const drawCountInput = useRef<HTMLInputElement>(null);
 
-    const cancelCallback = () => {
-      if (firstnameInput.current && lastnameInput.current) {
-        firstnameInput.current.value = props.student.firstname;
-        lastnameInput.current.value = props.student.lastname;
-        setEditable(false);
-      }
-    };
-    const validateCallback = () => {
-      if (firstnameInput.current && lastnameInput.current) {
-        props.updateCallback(new Student(props.student.id, props.student.classId, firstnameInput.current.value, lastnameInput.current.value));
-      }
-    };
     const deleteCallback = () => {
       props.deleteCallback(props.student);
     }
 
+    const updateCallback = () => {
+        if (firstnameInput.current && lastnameInput.current && drawCountInput.current) {
+            props.student.firstname = firstnameInput.current.value;
+            props.student.lastname = lastnameInput.current.value;
+            props.student.drawCount = parseInt(drawCountInput.current.value);
+            props.updateCallback(props.student);
+        }
+    }
+
     return (
         <div className="student-line">
-            <input type="text" defaultValue={props.student.firstname} ref={firstnameInput} disabled={!editable} autoFocus/>
-            <input type="text" defaultValue={props.student.lastname} ref={lastnameInput} disabled={!editable}/>
-            <input type="number" defaultValue={props.student.drawCount} ref={drawCountInput} disabled={!editable}/>
+            <input type="text" value={props.student.firstname} ref={firstnameInput} onChange={updateCallback}/>
+            <input type="text" value={props.student.lastname} ref={lastnameInput} onChange={updateCallback}/>
+            <input type="number" value={props.student.drawCount} ref={drawCountInput} onChange={updateCallback} min={0}/>
             <div className="toolbar">
-                {editable && <button type="button" className="btn btn-icon" onClick={validateCallback}><CheckIcon/></button>}
-                {editable && <button type="button" className="btn btn-icon" onClick={cancelCallback}><CrossIcon/></button>}
-                {!editable && <button type="button" className="btn btn-icon" onClick={() => setEditable(true)}><EditIcon/></button>}
-                {!editable && <button type="button" className="btn btn-icon" onClick={deleteCallback}><DeleteIcon/></button>}
+                <button type="button" className="btn btn-icon" onClick={deleteCallback}><DeleteIcon/></button>
             </div>
         </div>
     );
