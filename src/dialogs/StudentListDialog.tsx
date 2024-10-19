@@ -1,4 +1,4 @@
-import {forwardRef, Ref, RefObject, useRef, useState} from "react";
+import {forwardRef, Ref, RefObject, useImperativeHandle, useRef, useState} from "react";
 import Student from "../model/Student";
 import {CheckIcon, CrossIcon, DeleteIcon} from "../components/icons/Icons";
 
@@ -8,16 +8,28 @@ type StudentListDialogProps = {
     validateCallback :(studentList :Student[]) => void
 }
 
+export interface StudentListDialogRef {
+    open: () => void;
+}
 
-export default forwardRef(function StudentListDialog(props :StudentListDialogProps, ref :Ref<HTMLDialogElement>) {
+
+export default forwardRef<StudentListDialogRef, StudentListDialogProps>(function StudentListDialog(props :StudentListDialogProps, ref :Ref<StudentListDialogRef>) {
   const [studentList, setStudentList] = useState(props.studentList.map((student) => student.copy()));
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    open: () => {
+      setStudentList(props.studentList.map((student) => student.copy()));
+      (dialogRef as RefObject<HTMLDialogElement>).current?.showModal();
+    }
+  }));
 
   const validateCallback = () => {
     props.validateCallback(studentList);
-    (ref as RefObject<HTMLDialogElement>).current?.close();
+    (dialogRef as RefObject<HTMLDialogElement>).current?.close();
   };
   const cancelCallback = () => {
-    (ref as RefObject<HTMLDialogElement>).current?.close();
+    (dialogRef as RefObject<HTMLDialogElement>).current?.close();
     setStudentList(props.studentList); 
   };
 
@@ -36,7 +48,7 @@ export default forwardRef(function StudentListDialog(props :StudentListDialogPro
   }
 
   return (
-      <dialog className="student-list-dialog" ref={ref}>
+      <dialog className="student-list-dialog" ref={dialogRef}>
           <form method="dialog" className="dialog-content">
               <div className="dialog-title">Liste des élèves</div>
               <div className="dialog-main">

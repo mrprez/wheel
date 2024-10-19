@@ -1,7 +1,7 @@
 import StudentClass from "../model/StudentClass";
 import studentClassDao from "../dao/StudentClassDao";
 import { useRef, useState } from "react";
-import StudentListDialog from "../dialogs/StudentListDialog";
+import StudentListDialog, {StudentListDialogRef} from "../dialogs/StudentListDialog";
 import Student from "../model/Student";
 import {BackIcon, MenuIcon} from "../components/icons/Icons";
 import WheelComponent from "../components/WheelComponent";
@@ -18,7 +18,7 @@ export default function ClassPage(props :ClassPageProps) {
     const [rotation, setRotation] = useState(0);
     const weightSum = studentList.reduce((sum, student) => sum + getStudentWeigth(student), 0);
 
-    const studentListDialogRef = useRef<HTMLDialogElement>(null);
+    const studentListDialogRef = useRef<StudentListDialogRef>(null);
 
     const saveStudentListCallback = (studentList :Student[]) => {
         setStudentList(studentList);
@@ -64,7 +64,7 @@ export default function ClassPage(props :ClassPageProps) {
                 <button className="back-btn" onClick={props.goToClassListCallback}><BackIcon/></button>
                 <h1>Classe {props.studentClass.name}</h1>
                 <div className="toolbar">
-                    <button className="btn btn-icon" onClick={() => studentListDialogRef.current?.showModal()} title="Liste des élèves">
+                    <button className="btn btn-icon" onClick={() => studentListDialogRef.current?.open()} title="Liste des élèves">
                         <MenuIcon/>
                     </button>
                 </div>
