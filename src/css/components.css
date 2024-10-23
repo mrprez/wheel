@@ -225,17 +225,24 @@ input[type='text']:focus-within, input[type='text']:active, input[type='number']
   stroke: none;
 }
 
-.wheel .wheel-arcs .wheel-arc-group:nth-child(odd) .wheel-arc {
+.wheel .wheel-arcs .wheel-arc-group.style-0 .wheel-arc {
   fill: color-mix(in srgb, var(--active-color) 25%, var(--text-color) 75%);
 }
-.wheel .wheel-arcs .wheel-arc-group:nth-child(even) .wheel-arc {
-  fill: color-mix(in srgb, var(--active-color) 25%, var(--background-color) 75%);
-}
-
-.wheel .wheel-arcs .wheel-arc-group:nth-child(odd) .wheel-arc-text {
+.wheel .wheel-arcs .wheel-arc-group.style-0 .wheel-arc-text {
   fill: var(--background-color);
 }
-.wheel .wheel-arcs .wheel-arc-group:nth-child(even) .wheel-arc-text {
+
+.wheel .wheel-arcs .wheel-arc-group.style-1  .wheel-arc {
+  fill: color-mix(in srgb, var(--active-color) 25%, var(--background-color) 75%);
+}
+.wheel .wheel-arcs .wheel-arc-group.style-1 .wheel-arc-text {
+  fill: var(--text-color);
+}
+
+.wheel .wheel-arcs .wheel-arc-group.style-2 .wheel-arc {
+  fill: var(--active-color);
+}
+.wheel .wheel-arcs .wheel-arc-group.style-2 .wheel-arc-text {
   fill: var(--text-color);
 }
 

@@ -30,7 +30,7 @@ export default function WheelComponent(props: WheelProps) {
                 setActualRotation(props.rotation);
             });
         }
-    }, [props.rotation]);
+    }, [props.rotation, actualRotation]);
     let angle = 0;
     return (
         <svg className='wheel' viewBox={'0 0 ' + (WHEEL_RADIUS * 2) + ' ' + (WHEEL_RADIUS * 2)}>
@@ -78,9 +78,13 @@ function WheelArc(props :WheelArcProps) {
             <textPath href={'#text-' + props.index}>{props.text}</textPath>
         </text>
     ) : null;
+    let style = "style-" + (props.index % 3);
+    if (Math.abs(props.endAngle - Math.PI * 2) < 0.00001 && props.index % 3 === 0) {
+        style = "style-1";
+    }
 
     return (
-        <g className="wheel-arc-group">
+        <g className={'wheel-arc-group ' + style}>
             {defs}
             {arc}
             {text}
