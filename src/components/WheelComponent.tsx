@@ -42,13 +42,17 @@ export default function WheelComponent(props: WheelProps) {
                     <WheelArc key={index} index={index}
                               text={getStudentName(student)}
                               startAngle={angle}
-                              endAngle={angle=angle + 2 * Math.PI * props.getStudentPart(student) }/>
+                              endAngle={angle = angle + 2 * Math.PI * props.getStudentPart(student)}/>
                 )}
                 {props.students.length === 0 ? <WheelArc index={0} startAngle={0} endAngle={2 * Math.PI}/> : null}
             </g>
-            <path d={'M ' + WHEEL_RADIUS*0.95 + ' ' + 3
-                + ' L ' + WHEEL_RADIUS + ' ' + WHEEL_RADIUS*0.1
-                + ' L ' + WHEEL_RADIUS*1.05 + ' ' + 3
+            <path d={'M ' + WHEEL_RADIUS * 0.95 + ' ' + 4
+                + ' L ' + WHEEL_RADIUS + ' ' + WHEEL_RADIUS * 0.1
+                + ' L ' + WHEEL_RADIUS * 1.05 + ' ' + 4
+                + 'Z'} stroke="white" strokeWidth="8"/>
+            <path d={'M ' + WHEEL_RADIUS * 0.95 + ' ' + 4
+                + ' L ' + WHEEL_RADIUS + ' ' + WHEEL_RADIUS * 0.1
+                + ' L ' + WHEEL_RADIUS * 1.05 + ' ' + 4
                 + 'Z'} className="wheel-indicator" strokeWidth="6"/>
         </svg>
     );
@@ -59,7 +63,7 @@ function playSound(delay: number, remainingTime: number) {
         return;
     }
     audio.play();
-    setTimeout(() => playSound(delay*1.5, remainingTime - delay), delay);
+    setTimeout(() => playSound(delay * 1.5, remainingTime - delay), delay);
 }
 
 function getStudentName(student: Student): string {
