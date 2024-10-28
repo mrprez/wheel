@@ -2,7 +2,7 @@ import Student from "../model/Student";
 import {useEffect, useRef, useState} from "react";
 
 const WHEEL_RADIUS = 500;
-
+const audio = new Audio('tick.mp3');
 
 export type WheelProps = {
     students: Student[],
@@ -14,7 +14,7 @@ export default function WheelComponent(props: WheelProps) {
     const [actualRotation, setActualRotation] = useState(0);
     const wheelArcsGroupRef = useRef<SVGGElement>(null);
     useEffect(() => {
-        if (wheelArcsGroupRef.current) {
+        if (wheelArcsGroupRef.current && props.rotation !== actualRotation) {
             const rotationKeyFrames = [
                 { transform: "rotate(" + actualRotation + "deg)" },
                 { transform: "rotate(" + props.rotation + "deg)" }
@@ -29,6 +29,9 @@ export default function WheelComponent(props: WheelProps) {
             rotationAnimation.finished.then(() => {
                 setActualRotation(props.rotation);
             });
+            if (props.rotation !== 0) {
+                playSound(1, 10000);
+            }
         }
     }, [props.rotation, actualRotation]);
     let angle = 0;
@@ -49,6 +52,14 @@ export default function WheelComponent(props: WheelProps) {
                 + 'Z'} className="wheel-indicator" strokeWidth="6"/>
         </svg>
     );
+}
+
+function playSound(delay: number, remainingTime: number) {
+    if (remainingTime <= 0) {
+        return;
+    }
+    audio.play();
+    setTimeout(() => playSound(delay*1.5, remainingTime - delay), delay);
 }
 
 function getStudentName(student: Student): string {
